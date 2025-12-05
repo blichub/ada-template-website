@@ -1,9 +1,9 @@
 theme: jekyll-theme-minimal
-title: ADA Template Website
-description: A template website for ADA
+title: InsertCoolTeamNameAda2025 website
+description: The website of group InsertCoolTeamNameAda2025 for the Xenium's Alzheimers disease data analysis
 show_downloads: True
 navigation:
   - title: Home
-    url: /
+    url: README
   - title: Example
     url: example
