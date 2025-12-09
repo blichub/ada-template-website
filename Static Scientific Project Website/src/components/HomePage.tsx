@@ -15,7 +15,7 @@ export function HomePage() {
     },
     {
       id: 'rq2',
-      title: 'RQ2: Temporal Evolution',
+      title: 'Temporal Evolution',
       description: 'How does metabolic dysfunction evolve with disease progression?',
       icon: Clock,
       link: '/rq2-temporal',
@@ -23,7 +23,7 @@ export function HomePage() {
     },
     {
       id: 'rq3',
-      title: 'RQ3: Cell-Type Vulnerability',
+      title: 'Cell-Type Vulnerability',
       description: ' Do different cell types exhibit distinct metabolic responses to Alzheimer\'s pathology?',
       icon: Layers,
       link: '/rq3-celltypes',
@@ -196,7 +196,7 @@ export function HomePage() {
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl mb-6 gradient-text">Dataset &{'&'} Methods</h2>
+            <h2 className="text-4xl md:text-5xl mb-6 gradient-text">Dataset {'&'} Methods</h2>
             <p className="text-slate-400 max-w-3xl mx-auto">
               Our analysis uses cutting-edge spatial transcriptomics to map gene expression with spatial resolution
             </p>

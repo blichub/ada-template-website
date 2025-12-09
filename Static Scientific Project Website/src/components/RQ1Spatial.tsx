@@ -65,12 +65,12 @@ export function RQ1Spatial() {
                 <MapPin className="size-8 text-white" />
               </div>
               <div>
-                <h1 className="text-5xl md:text-6xl gradient-text">RQ1: Spatial Analysis</h1>
+                <h1 className="text-5xl md:text-6xl gradient-text">Spatial Analysis</h1>
                 <p className="text-slate-400 mt-2">Research Question 1</p>
               </div>
             </div>
             <p className="text-xl text-slate-300 max-w-3xl">
-              Is energy metabolism depressed near amyloid plaques?
+              Does metabolic dysfunction in Alzheimer's follow a spatial gradient around amyloid plaques?
             </p>
           </motion.div>
         </div>

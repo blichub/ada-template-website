@@ -10,8 +10,8 @@ export function About() {
       name: 'Flavie Arod',
       role: 'Spatial analysis & Visualization',
       github: 'https://github.com',
-      linkedin: 'https://linkedin.com',
-      email: 'member1@epfl.ch',
+      linkedin: 'https://linkedin.com/in/flaviearod',
+      email: 'flavie.arod@epfl.ch',
     },
     {
       name: 'Team Member 2',
@@ -31,6 +31,14 @@ export function About() {
     },
     {
       name: 'Team Member 4',
+      role: 'Web Development & Communication',
+      bio: 'Full-stack developer with interest in data storytelling. Creates interactive visualizations to communicate research findings.',
+      github: 'https://github.com',
+      linkedin: 'https://linkedin.com',
+      email: 'member4@epfl.ch',
+    },
+    {
+      name: 'Team Member 5',
       role: 'Web Development & Communication',
       bio: 'Full-stack developer with interest in data storytelling. Creates interactive visualizations to communicate research findings.',
       github: 'https://github.com',
