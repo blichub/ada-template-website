@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Github, Linkedin, Mail, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -6,9 +7,8 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 export function About() {
   const teamMembers = [
     {
-      name: 'Team Member 1',
-      role: 'Data Analysis & Visualization',
-      bio: 'Specialized in spatial transcriptomics and computational biology. Passionate about uncovering patterns in complex biological datasets.',
+      name: 'Flavie Arod',
+      role: 'Spatial analysis & Visualization',
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
       email: 'member1@epfl.ch',

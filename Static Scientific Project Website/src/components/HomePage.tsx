@@ -7,8 +7,8 @@ export function HomePage() {
   const features = [
     {
       id: 'rq1',
-      title: 'RQ1: Spatial Analysis',
-      description: 'Is energy metabolism depressed near amyloid plaques?',
+      title: 'Spatial Analysis',
+      description: 'Does metabolic dysfunction in Alzheimer\'s follow a spatial gradient around amyloid plaques?',
       icon: MapPin,
       link: '/rq1-spatial',
       gradient: 'from-blue-500 to-purple-500',
@@ -24,7 +24,7 @@ export function HomePage() {
     {
       id: 'rq3',
       title: 'RQ3: Cell-Type Vulnerability',
-      description: 'Which cell types are most affected by metabolic decline?',
+      description: ' Do different cell types exhibit distinct metabolic responses to Alzheimer\'s pathology?',
       icon: Layers,
       link: '/rq3-celltypes',
       gradient: 'from-green-500 to-yellow-500',
