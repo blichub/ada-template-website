@@ -9,9 +9,8 @@
 6. Go back to "Settings" -> "Pages" to find your website link.
 
 
+# ADA 2024 — Energy Crisis in Alzheimer's Mouse Brain
 
-Hi i'm Antonio
-
-Hi I'm Flavie
-
-test
+## 🔗 Data Story (Website)
+👉 Our full data story is available here:  
+https://<username>.github.io/<repo-name>/
