@@ -7,6 +7,7 @@ export function Navigation() {
 
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
+    { path: '/dataset-methods', label: 'Data & Methods', icon: null },
     { path: '/rq1-spatial', label: 'Spatial Analysis', icon: null },
     { path: '/rq2-temporal', label: 'Temporal Evolution', icon: null },
     { path: '/rq3-celltypes', label: 'Cell-Type Vulnerability', icon: null },

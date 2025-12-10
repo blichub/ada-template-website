@@ -6,6 +6,7 @@ import { RQ2Temporal } from './components/RQ2Temporal';
 import { RQ3CellTypes } from './components/RQ3CellTypes';
 import { About } from './components/About';
 import { ScrollToTop } from './components/ScrollToTop';
+import { DatasetMethods } from './components/dataset_methods';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/dataset-methods" element={<DatasetMethods />} />
           <Route path="/rq1-spatial" element={<RQ1Spatial />} />
           <Route path="/rq2-temporal" element={<RQ2Temporal />} />
           <Route path="/rq3-celltypes" element={<RQ3CellTypes />} />
