@@ -64,7 +64,7 @@ export function RQ2Temporal() {
                 <Clock className="size-8 text-white" />
               </div>
               <div>
-                <h1 className="text-5xl md:text-6xl gradient-text">RQ2: Temporal Evolution</h1>
+                <h1 className="text-5xl md:text-6xl gradient-text">Temporal Evolution</h1>
                 <p className="text-slate-400 mt-2">Research Question 2</p>
               </div>
             </div>

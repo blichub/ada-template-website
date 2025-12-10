@@ -7,22 +7,31 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 export function RQ1Spatial() {
   // Mock data for spatial analysis
   const distanceData = [
-    { distance: '0-50', metabolicScore: 42, count: 156 },
-    { distance: '50-100', metabolicScore: 58, count: 234 },
-    { distance: '100-150', metabolicScore: 71, count: 298 },
-    { distance: '150-200', metabolicScore: 82, count: 312 },
-    { distance: '200-250', metabolicScore: 88, count: 267 },
-    { distance: '250+', metabolicScore: 94, count: 189 },
+    { distance: '0-50', metabolicScore: 0.59, count: 869 },
+    { distance: '50-100', metabolicScore: 0.98, count: 887 },
+    { distance: '100-150', metabolicScore: 0.95, count: 1966 },
+    { distance: '150-200', metabolicScore: 0.93, count: 3284 },
+    { distance: '200-500', metabolicScore: 0.99, count: 48746 },
+    { distance: '500+', metabolicScore: 1.05, count: 294551 },
   ];
 
   const geneExpressionData = [
-    { gene: 'ATP5A1', nearPlaque: 45, farPlaque: 92, category: 'OXPHOS' },
-    { gene: 'COX4I1', nearPlaque: 51, farPlaque: 88, category: 'OXPHOS' },
-    { gene: 'NDUFA1', nearPlaque: 48, farPlaque: 95, category: 'OXPHOS' },
-    { gene: 'PFKM', nearPlaque: 62, farPlaque: 85, category: 'Glycolysis' },
-    { gene: 'LDHA', nearPlaque: 71, farPlaque: 79, category: 'Glycolysis' },
-    { gene: 'IDH1', nearPlaque: 55, farPlaque: 91, category: 'TCA Cycle' },
+    { gene: 'Gatm', nearPlaque: 0.97, farPlaque: 1.37, category: 'Mitochondrial' },
+    { gene: 'Apoe', nearPlaque: 6.06, farPlaque: 7.97, category: 'Lipid metabolism transport ' },
+    { gene: 'Gpx4', nearPlaque: 1.93, farPlaque: 3.61, category: 'Oxidative stress' },
+    { gene: 'Igf1', nearPlaque: 0.13, farPlaque: 0.12, category: 'Growth factor' },
+    { gene: 'Ctsd', nearPlaque: 2.13, farPlaque: 2.95, category: 'Redox lysosomal metabolism' },
   ];
+
+  const cellFractionData = [
+  { mouse: 'WT2.5', age: 2.5, Astrocyte: 0.41, Microglia: 0.09, Oligodendrocyte: 0.19, Neuron: 0.18 },
+  { mouse: 'WT5.7', age: 5.7, Astrocyte: 0.41, Microglia: 0.07, Oligodendrocyte: 0.24, Neuron: 0.16 },
+  { mouse: 'WT13', age: 13.4, Astrocyte: 0.37, Microglia: 0.11, Oligodendrocyte: 0.22, Neuron: 0.17 },
+  { mouse: 'TG2.5', age: 2.5, Astrocyte: 0.44, Microglia: 0.08, Oligodendrocyte: 0.15, Neuron: 0.17 },
+  { mouse: 'TG5.7', age: 5.7, Astrocyte: 0.40, Microglia: 0.08, Oligodendrocyte: 0.19, Neuron: 0.19 },
+  { mouse: 'TG13+', age: 17.9, Astrocyte: 0.52, Microglia: 0.08, Oligodendrocyte: 0.19, Neuron: 0.12 },
+];
+
 
   const spatialHeatmap = [
     { x: 20, y: 30, z: 95, type: 'far' },
@@ -126,31 +135,54 @@ export function RQ1Spatial() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                   <XAxis 
-                    dataKey="distance" 
+                    dataKey="distance"
                     stroke="#94a3b8"
-                    label={{ value: 'Distance from Plaque (μm)', position: 'insideBottom', offset: -5, fill: '#94a3b8' }}
+                    tick={{ fill: '#94a3b8' }}
+                    label={{
+                      value: 'Distance from Plaque (μm)',
+                      position: 'insideBottom',
+                      dy: 10,   // décale besides tip haul
+                      fill: '#94a3b8',
+                      style: { fontSize: '14px', textAnchor: 'middle'}
+                    }}
                   />
                   <YAxis 
                     stroke="#94a3b8"
-                    label={{ value: 'Metabolic Score', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
-                  />
+                    domain={[0.5, 1.1]}
+                    ticks={[0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1]}
+                    tick={{ fill: '#94a3b8' }}
+                    label={{
+                      value: 'Metabolic Score',
+                      angle: -90,
+                      position: 'insideLeft',
+                      offset: 0,   // éloigne le label => évite le chevauchement
+                      fill: '#94a3b8',
+                      style: { fontSize: '14px', textAnchor: 'middle' }
+                    }}  
+                    />
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                     labelStyle={{ color: '#e2e8f0' }}
                   />
-                  <Legend />
+                  <Legend 
+                    verticalAlign='bottom'
+                    wrapperStyle={{ bottom: -5}}
+                  />
                   <Line 
                     type="monotone" 
                     dataKey="metabolicScore" 
                     stroke="#3b82f6" 
                     strokeWidth={3}
                     fill="url(#metabolicGradient)"
-                    name="Metabolic Score"
+                    name="Energy Score"
                     dot={{ fill: '#3b82f6', r: 6 }}
                   />
                 </LineChart>
               </ResponsiveContainer>
             </div>
+            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+              This pattern indicates a localized energy deficit around the plaques. Astrocytes and neurons in close proximity to the plaques experience a more pronounced energetic impairment.
+            </p>
           </motion.div>
         </div>
       </section>
@@ -192,27 +224,78 @@ export function RQ1Spatial() {
 
             <div className="mt-8 grid md:grid-cols-3 gap-4">
               <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
-                <h4 className="text-blue-400 mb-2">OXPHOS Genes</h4>
+                <h4 className="text-blue-400 mb-2">Mitochondrial Gene</h4>
                 <p className="text-slate-300">
-                  ATP5A1, COX4I1, NDUFA1 show &gt;40% reduction near plaques
+                  Mitochondrial dysfunction is an early marker of Alzheimer's disease. Gatm is involved in creatine metabolism, which is essential for energy production in neuronal cells.
+                  <b>Gatm</b> expression level decreases by 30% near plaques.
                 </p>
               </div>
               <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
-                <h4 className="text-purple-400 mb-2">Glycolysis</h4>
+                <h4 className="text-purple-400 mb-2">Lipid metabolism</h4>
                 <p className="text-slate-300">
-                  PFKM shows moderate reduction, LDHA relatively preserved
+                  Apoe est le gène de susceptibilité le plus fort pour la maladie d’Alzheimer, impliqué dans le transport du cholestérol et la clairance de l’amyloïde.
+                  Apoe shows a reduction of 24% near plaques, LDHA relatively preserved
                 </p>
               </div>
               <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
-                <h4 className="text-green-400 mb-2">TCA Cycle</h4>
+                <h4 className="text-green-400 mb-2">Redox lysosomal metabolism</h4>
                 <p className="text-slate-300">
-                  IDH1 shows significant reduction near plaques
+                  Gpx4 decreases by 47% near plaques, indicating increased oxidative stress. Igf1 remains stable, suggesting growth factor signaling is less affected. Ctsd, involved in lysosomal function, decreases by 28% near plaques.
                 </p>
               </div>
             </div>
           </motion.div>
         </div>
       </section>
+
+      {/* Cell Type Fractions */}
+<section className="py-16 bg-[#050814]">
+  <div className="container mx-auto px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+        Cell Type Fractions by Age
+      </h2>
+      <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+        Fraction of different cell types across mice, sorted from youngest to oldest
+      </p>
+      <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart
+            data={cellFractionData.sort((a, b) => a.age - b.age)}
+            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+          >
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+            <XAxis
+              dataKey="mouse"
+              stroke="#94a3b8"
+              tick={{ fill: '#94a3b8' }}
+              interval={0}
+            />
+            <YAxis
+              stroke="#94a3b8"
+              label={{ value: 'Fraction of Cells', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
+            />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+              labelStyle={{ color: '#e2e8f0' }}
+            />
+            <Legend verticalAlign="top" wrapperStyle={{ paddingBottom: 20 }} />
+            <Bar dataKey="Astrocyte" stackId="a" fill="#1a5c3f" name="Astrocytes" />
+            <Bar dataKey="Microglia" stackId="a" fill="#7B68EE" name="Microglia" />
+            <Bar dataKey="Oligodendrocyte" stackId="a" fill="#8B4513" name="Oligodendrocytes" />
+            <Bar dataKey="Neuron" stackId="a" fill="#FF6347" name="Neurons" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
+
 
       {/* Spatial Distribution */}
       <section className="py-16 bg-[#0a0e27]">

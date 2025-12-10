@@ -157,7 +157,7 @@ export function HomePage() {
               <h2 className="text-4xl md:text-5xl mb-6 gradient-text">Project Overview</h2>
               <div className="space-y-4 text-slate-300">
                 <p>
-                  Alzheimer's disease is characterized by the accumulation of amyloid plaques and metabolic dysfunction in the brain. 
+                  Alzheimer's disease is characterized by metabolic dysfunction in the brain caused by the accumulation of toxic proteins, forming microscopic lesions called amyloid plaques.  
                   This project leverages spatial transcriptomics data to investigate how energy metabolism is affected in mouse models of Alzheimer's disease.
                 </p>
                 <p>
@@ -170,6 +170,8 @@ export function HomePage() {
                 </p>
               </div>
             </motion.div>
+
+            
 
             <motion.div
               initial={{ opacity: 0, x: 30 }}
@@ -217,7 +219,7 @@ export function HomePage() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-400 mt-1">•</span>
-                  <span>Multiple time points: 4, 8, and 12 months</span>
+                  <span>Multiple time points: 2, 5, and 13+ months</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-400 mt-1">•</span>
@@ -257,6 +259,139 @@ export function HomePage() {
                 </li>
               </ul>
             </motion.div>
+
+            {/* Gene Categories Overview */}
+  <section className="py-24 bg-[#0a0e27]">
+  <div className="px-6 w-full mx-auto max-w-full">
+
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="text-center mb-16"
+    >
+      <h2 className="text-4xl md:text-5xl mb-6 gradient-text">Gene Categories</h2>
+      <p className="text-slate-400 max-w-3xl mx-auto">
+        Functional groups of genes captured in the Xenium dataset, highlighting key pathways related to
+        metabolism, redox balance, neuro–glia interactions, and immune crosstalk.
+      </p>
+    </motion.div>
+
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      className="overflow-x-auto bg-slate-800/20 border border-slate-700/40 rounded-xl p-6"
+    >
+      <table className="w-full text-left text-slate-300">
+        <thead className="text-slate-200 border-b border-slate-700">
+          <tr>
+            <th className="py-3 px-4">Category</th>
+            <th className="py-3 px-4">Example Genes</th>
+            <th className="py-3 px-4">Biological Function / Role</th>
+            <th className="py-3 px-4 text-right"># Genes</th>
+          </tr>
+        </thead>
+
+        <tbody className="divide-y divide-slate-700/50">
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Mitochondrial</td>
+            <td className="py-3 px-4 italic">Gatm</td>
+            <td className="py-3 px-4">Supports mitochondrial ATP buffering via creatine metabolism.</td>
+            <td className="py-3 px-4 text-right font-semibold">1</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Oxidative Stress / Antioxidant Defense</td>
+            <td className="py-3 px-4 italic">Gpx4, Prdx6, Cyba</td>
+            <td className="py-3 px-4">Detoxifies reactive oxygen species and maintains redox homeostasis.</td>
+            <td className="py-3 px-4 text-right font-semibold">3</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Lipid Metabolism & Transport</td>
+            <td className="py-3 px-4 italic">Apoe, Apod, Lcn2, Sorl1</td>
+            <td className="py-3 px-4">Regulates lipid activation and astrocyte–neuron lipid exchange.</td>
+            <td className="py-3 px-4 text-right font-semibold">8</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Amino Acid / Creatine / One-Carbon</td>
+            <td className="py-3 px-4 italic">Aldh1a2, Aldh1l1, Gatm, Gns</td>
+            <td className="py-3 px-4">Amino acid and folate metabolism contributing to NADPH and energy balance.</td>
+            <td className="py-3 px-4 text-right font-semibold">9</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Astrocyte Metabolic Support</td>
+            <td className="py-3 px-4 italic">Aldh1l1, Apoe, Gfap, Lcn2</td>
+            <td className="py-3 px-4">Astrocyte pathways recycling metabolites for neuronal energy supply.</td>
+            <td className="py-3 px-4 text-right font-semibold">7</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Vascular–Nutrient Coupling</td>
+            <td className="py-3 px-4 italic">Angpt1, Kdr, Pecam1, Emcn</td>
+            <td className="py-3 px-4">Genes regulating oxygen delivery and metabolic substrate transport.</td>
+            <td className="py-3 px-4 text-right font-semibold">5</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Growth-Factor / Metabolic Signaling</td>
+            <td className="py-3 px-4 italic">Igf1, Stat3, Tnf, Fos</td>
+            <td className="py-3 px-4">Growth factor and cytokine signaling (IGF, JAK–STAT, mTOR) modulating metabolism.</td>
+            <td className="py-3 px-4 text-right font-semibold">10</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Redox / Lysosomal Metabolism</td>
+            <td className="py-3 px-4 italic">Ctsb, Ctsd, Prdx6, Gpx4</td>
+            <td className="py-3 px-4">Lysosomal enzymes and antioxidant systems maintaining redox balance.</td>
+            <td className="py-3 px-4 text-right font-semibold">9</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Ion Signaling / Energy Coupling</td>
+            <td className="py-3 px-4 italic">Orai2, Gucy1a1, Gja1, Gjb2</td>
+            <td className="py-3 px-4">Calcium and cGMP pathways linking excitability to ATP demand.</td>
+            <td className="py-3 px-4 text-right font-semibold">5</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Immune–Metabolic Crosstalk</td>
+            <td className="py-3 px-4 italic">C1qa, C1qb, Trem2, Tyrobp</td>
+            <td className="py-3 px-4">Microglial activation and inflammatory metabolic reprogramming.</td>
+            <td className="py-3 px-4 text-right font-semibold">11</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Autophagy / Proteostasis</td>
+            <td className="py-3 px-4 italic">Ctsb, Ctsd, Laptm5, Gns</td>
+            <td className="py-3 px-4">Energy recycling and protein degradation pathways under metabolic stress.</td>
+            <td className="py-3 px-4 text-right font-semibold">7</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Glucose & Nutrient Transport</td>
+            <td className="py-3 px-4 italic">Slc17a6, Slc6a3, Slco2b1</td>
+            <td className="py-3 px-4">Membrane transport of glucose, amino acids, and other substrates.</td>
+            <td className="py-3 px-4 text-right font-semibold">6</td>
+          </tr>
+
+          <tr>
+            <td className="py-3 px-4 font-semibold text-white">Synaptic Energy Demand</td>
+            <td className="py-3 px-4 italic">Syt2, Syngr1, Rab3b</td>
+            <td className="py-3 px-4">ATP-intensive synaptic transmission processes.</td>
+            <td className="py-3 px-4 text-right font-semibold">8</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </motion.div>
+  </div>
+</section>
+
           </div>
         </div>
       </section>
