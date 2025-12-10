@@ -2,7 +2,7 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Clock, Layers } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import mitBrain from '../assets/mitch-VIPneurons-mouse.png';
+import mitBrain from '../assets/homepage.png';
 
 export function HomePage() {
   const features = [
