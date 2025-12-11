@@ -2,7 +2,7 @@ name: Deploy static site
 
 on:
   push:
-    branches: [ main ]   # or master, depending on your repo
+    branches: [ master ]   # or master, depending on your repo
   workflow_dispatch:      # allows manual trigger
 
 jobs:
