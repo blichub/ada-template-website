@@ -7,18 +7,20 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 export function DatasetMethods() {
   // Sample information
   const sampleData = [
-    { timepoint: '4 months', samples: 8, cells: '~15,000', plaques: 'Low' },
-    { timepoint: '8 months', samples: 8, cells: '~18,000', plaques: 'Medium' },
-    { timepoint: '12 months', samples: 8, cells: '~20,000', plaques: 'High' },
+    { timepoint: '2.5 months', samples: 2, cells: '~55,000'},
+    { timepoint: '5.7 months', samples: 2, cells: '~58,000'},
+    { timepoint: '13+ months', samples: 2, cells: '~60,000'},
   ];
 
   // Gene categories distribution
   const geneCategories = [
-    { category: 'Metabolic', count: 156, color: '#3b82f6' },
-    { category: 'OXPHOS', count: 89, color: '#8b5cf6' },
-    { category: 'Glycolysis', count: 42, color: '#10b981' },
-    { category: 'TCA Cycle', count: 31, color: '#f59e0b' },
-    { category: 'Other Energy', count: 38, color: '#ef4444' },
+    { category: 'Mitochondrial', count: 1, color: '#3b82f6' },
+    { category: 'Oxidative stress', count: 3, color: '#8b5cf6' },
+    { category: 'Core metabolism', count: 23, color: '#10b981' },
+    { category: 'Synaptic and ion signaling', count: 13, color: '#fb923c' },
+    { category: 'Immune activation', count: 11, color: '#dc2626' },
+    { category: 'Nutrient transport', count: 6, color: '#0ea5e9' },
+    { category: 'Other genes', count: 24, color: '#565960ff' },
   ];
 
   const qualityMetrics = [
@@ -123,7 +125,6 @@ export function DatasetMethods() {
                       <th className="py-3 px-4 text-slate-300">Timepoint</th>
                       <th className="py-3 px-4 text-slate-300">Samples</th>
                       <th className="py-3 px-4 text-slate-300">Cells</th>
-                      <th className="py-3 px-4 text-slate-300">Plaque Load</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -139,15 +140,6 @@ export function DatasetMethods() {
                         <td className="py-3 px-4 text-slate-300">{row.timepoint}</td>
                         <td className="py-3 px-4 text-slate-400">{row.samples}</td>
                         <td className="py-3 px-4 text-slate-400">{row.cells}</td>
-                        <td className="py-3 px-4">
-                          <span className={`px-2 py-1 rounded text-sm ${
-                            row.plaques === 'Low' ? 'bg-green-500/20 text-green-400' :
-                            row.plaques === 'Medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                            'bg-red-500/20 text-red-400'
-                          }`}>
-                            {row.plaques}
-                          </span>
-                        </td>
                       </motion.tr>
                     ))}
                   </tbody>
@@ -218,20 +210,26 @@ export function DatasetMethods() {
               </div>
               <div className="space-y-3">
                 {geneCategories.map((cat, idx) => (
-                  <motion.div
-                    key={cat.category}
+                 <motion.div
+                   key={cat.category}
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
-                    className="flex items-center gap-3"
+                    className="flex items-center gap-4"
                   >
-                    <div
-                      className="w-4 h-4 rounded"
-                      style={{ backgroundColor: cat.color }}
+                   <div
+                    className="w-4 h-4 rounded"
+                    style={{ backgroundColor: cat.color }}
                     />
-                    <span className="text-slate-300 flex-1">{cat.category}</span>
-                    <span className="text-slate-400">{cat.count} genes</span>
+      
+                    <span className="text-slate-300 flex-1">
+                      {cat.category}
+                    </span>
+
+                    <span className="text-slate-400">
+                    {cat.count} genes
+                    </span>
                   </motion.div>
                 ))}
               </div>

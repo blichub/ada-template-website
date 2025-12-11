@@ -2,7 +2,6 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Clock, Layers } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import mitBrain from '../assets/homepage.png';
 
 export function HomePage() {
   const features = [
@@ -179,7 +178,6 @@ export function HomePage() {
             >
             <div className="w-full h-[350px] overflow-hidden rounded-2xl shadow-2xl glow relative">
               <ImageWithFallback
-                src={mitBrain}
                 alt="Scientific visualization"
                 className="absolute left-0 top-0 h-full w-[200%] object-cover"
               />
