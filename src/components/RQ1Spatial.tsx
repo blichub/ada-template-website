@@ -3,6 +3,9 @@ import { ArrowLeft, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import globalSpatialMap from '../assets/figure1_global_spatial_map.png';
+import Newplot from '../assets/newplot.png';
+
 
 export function RQ1Spatial() {
   // Mock data for spatial analysis
@@ -98,6 +101,63 @@ export function RQ1Spatial() {
           </motion.div>
         </div>
       </section>
+
+
+        {/* Global spatial map */}
+<section className="py-16 bg-[#050814]">
+  <div className="container mx-auto px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+        Global spatial organization of brain cells
+      </h2>
+      <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+        Cells closer to amyloid plaques show progressively lower metabolic gene expression
+      </p>
+
+      {/* Première image */}
+      <div className="flex justify-center mb-8">
+        <figure className="max-w-5xl">
+          <img
+            src={globalSpatialMap}
+            alt="Global spatial distribution of cells across mouse brain samples"
+            className="rounded-xl border border-white/10 shadow-lg"
+          />
+          <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed">
+            <span className="font-semibold text-gray-200">Figure 1.</span>{" "}
+            Global spatial map of all detected cells across wild-type and TgCRND8 mouse
+            brain samples. Each point represents a single cell positioned according to
+            its spatial centroid. This visualization provides an overview of tissue
+            geometry and spatial coverage, forming the basis for subsequent
+            plaque-centered distance analyses.
+          </figcaption>
+        </figure>
+      </div>
+
+      {/* Deuxième image */}
+      <div className="flex justify-center">
+        <figure className="max-w-5xl">
+          <img
+            src={Newplot} 
+            alt="Description de la deuxième image"
+            className="rounded-xl border border-white/10 shadow-lg"
+          />
+          <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed">
+            <span className="font-semibold text-gray-200">Figure 2.</span>{" "}
+            Légende de ta deuxième image. Décris ici ce que représente cette image.
+          </figcaption>
+        </figure>
+      </div>
+    </motion.div>
+  </div>
+</section>
+
+
+
+
 
       {/* Distance vs Metabolic Score */}
       <section className="py-16 bg-[#050814]">
