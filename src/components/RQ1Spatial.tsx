@@ -1,10 +1,13 @@
-import { motion } from 'motion/react';
+import { motion } from 'framer-motion';
 import { ArrowLeft, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import globalSpatialMap from '../assets/newplot.png';
-
+import spatial25 from '../assets/spatial_distance_to_plaque_2_5.png';
+import spatial57 from '../assets/spatial_distance_to_plaque_5_7.png';
+import spatial179 from '../assets/spatial_distance_to_plaque_17_9.png';
+import mouseBrainRegions from '../assets/brain_map.jpg'; // Remplace par le vrai nom de ton fichier
 
 
 export function RQ1Spatial() {
@@ -104,6 +107,153 @@ export function RQ1Spatial() {
       </section>
 
 
+      {/* Brain Regions Overview */}
+<section className="py-16 bg-[#050814]">
+  <div className="container mx-auto px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+        Mouse Brain Regions Overview
+      </h2>
+
+      <p className="text-slate-400 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+        Anatomical map of a mouse brain sagittal section, highlighting key regions
+        relevant to Alzheimer’s disease research.
+      </p>
+
+      {/* Image du cerveau */}
+      <div className="flex justify-center mb-12">
+        <figure className="max-w-5xl">
+          <img
+            src={mouseBrainRegions}
+            alt="Sagittal section of a mouse brain with annotated regions"
+            className="rounded-xl border border-white/10 shadow-lg"
+          />
+          <figcaption className="mt-6 text-sm text-gray-300 leading-relaxed text-center">
+            <span className="font-semibold text-gray-200">Figure 1.</span>{" "}
+            Sagittal section of a mouse brain showing major anatomical regions.
+            Colors indicate distinct brain areas, referenced in the legend below.
+          </figcaption>
+        </figure>
+      </div>
+
+      {/* Brain Regions Legend */}
+      <div className="max-w-4xl mx-auto mt-16">
+        <h3 className="text-2xl text-center mb-10 text-purple-300">
+          Brain Regions Legend
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          {/* Cortex */}
+          <div className="flex items-start gap-3">
+            <div className="w-4 h-4 rounded-full mt-1 bg-green-700 flex-shrink-0"></div>
+            <div>
+              <h4 className="text-lg font-medium text-green-400">
+                Cortex (CTX)
+              </h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Outer layer involved in sensory perception, cognition,
+                and voluntary movement.
+              </p>
+            </div>
+          </div>
+
+          {/* Hippocampus */}
+          <div className="flex items-start gap-3">
+            <div className="w-4 h-4 rounded-full mt-1 bg-green-300 flex-shrink-0"></div>
+            <div>
+              <h4 className="text-lg font-medium text-green-300">
+                Hippocampus (HPF)
+              </h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Critical for memory formation and spatial navigation.
+              </p>
+            </div>
+          </div>
+
+          {/* Thalamus */}
+          <div className="flex items-start gap-3">
+            <div className="w-4 h-4 rounded-full mt-1 bg-red-500 flex-shrink-0"></div>
+            <div>
+              <h4 className="text-lg font-medium text-red-300">
+                Thalamus (TH)
+              </h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Sensory relay station involved in consciousness and alertness.
+              </p>
+            </div>
+          </div>
+
+          {/* Hypothalamus */}
+          <div className="flex items-start gap-3">
+            <div className="w-4 h-4 rounded-full mt-1 bg-red-700 flex-shrink-0"></div>
+            <div>
+              <h4 className="text-lg font-medium text-red-400">
+                Hypothalamus (HY)
+              </h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Regulates homeostasis: hunger, thirst, sleep,
+                and hormonal responses.
+              </p>
+            </div>
+          </div>
+
+          {/* Striatum */}
+          <div className="flex items-start gap-3">
+            <div className="w-4 h-4 rounded-full mt-1 bg-gray-400 flex-shrink-0"></div>
+            <div>
+              <h4 className="text-lg font-medium text-gray-300">
+                Striatum
+              </h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Involved in motor control, reward, and executive functions.
+              </p>
+            </div>
+          </div>
+
+          {/* Amygdala */}
+          <div className="flex items-start gap-3">
+            <div className="w-4 h-4 rounded-full mt-1 bg-slate-400 flex-shrink-0"></div>
+            <div>
+              <h4 className="text-lg font-medium text-slate-300">
+                Amygdala
+              </h4>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Key for emotion processing, especially fear and aggression.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      {/* Description générale */}
+      <div className="mt-20">
+        <p className="text-slate-400 text-center max-w-3xl mx-auto leading-relaxed">
+          This sagittal section highlights the spatial organization of mouse brain
+          regions.
+        </p>
+
+        <p className="text-slate-400 text-center mt-4 max-w-3xl mx-auto leading-relaxed">
+          The <span className="text-green-400 font-medium">cortex</span>,{" "}
+          <span className="text-green-300 font-medium">hippocampus</span>, and{" "}
+          <span className="text-red-300 font-medium">thalamus</span> are particularly
+          relevant in Alzheimer’s disease research, as they are affected by amyloid
+          plaque accumulation and metabolic dysfunction.
+        </p>
+      </div>
+
+    </motion.div>
+  </div>
+</section>
+
+
+
+
         {/* Global spatial map */}
 <section className="py-16 bg-[#050814]">
   <div className="container mx-auto px-6">
@@ -116,7 +266,7 @@ export function RQ1Spatial() {
         Global spatial organization of brain cells
       </h2>
       <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-        Cells closer to amyloid plaques show progressively lower metabolic gene expression
+        Let's first take a look at the overall spatial distribution of cells across mouse brain samples.
       </p>
 
       {/* Première image */}
@@ -167,6 +317,84 @@ export function RQ1Spatial() {
     </motion.div>
   </div>
   </section>
+
+
+
+        {/* Image Gallery Section */}
+<section className="py-16 bg-[#0a0e27]">
+  <div className="container mx-auto px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+        Spatial distance to amyloid plaques
+      </h2>
+
+        <p className="text-slate-400 text-center mb-16 max-w-3xl mx-auto">
+        Spatial maps showing the distance of each cell to its nearest amyloid plaque
+        across three TgCRND8 Alzheimer’s disease mouse models at different ages.
+
+      </p>
+
+      {/* Gallery Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+        {/* Mouse 2.5 months */}
+        <figure className="bg-slate-800/30 border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+          <img
+            src={spatial25}
+            alt="Spatial distance to plaques – TgCRND8 2.5 months"
+            className="w-full h-64 object-cover"
+          />
+          <figcaption className="p-4 text-sm text-gray-300">
+            <span className="font-semibold text-gray-200">Figure A.</span>{" "}
+            Spatial distance to the nearest amyloid plaque in TgCRND8 mice at 2.5 months.
+          </figcaption>
+        </figure>
+
+        {/* Mouse 5–7 months */}
+        <figure className="bg-slate-800/30 border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+          <img
+            src={spatial57}
+            alt="Spatial distance to plaques – TgCRND8 5–7 months"
+            className="w-full h-64 object-cover"
+          />
+          <figcaption className="p-4 text-sm text-gray-300">
+            <span className="font-semibold text-gray-200">Figure B.</span>{" "}
+            Increased plaque burden and altered spatial gradients in TgCRND8 mice at 5 months.
+          </figcaption>
+        </figure>
+
+        {/* Mouse 17–9 months */}
+        <figure className="bg-slate-800/30 border border-slate-700/50 rounded-xl overflow-hidden shadow-lg">
+          <img
+            src={spatial179}
+            alt="Spatial distance to plaques – TgCRND8 17–9 months"
+            className="w-full h-64 object-cover"
+          />
+          <figcaption className="p-4 text-sm text-gray-300">
+            <span className="font-semibold text-gray-200">Figure C.</span>{" "}
+            Dense plaque-associated spatial gradients in advanced-stage TgCRND8 mice (17 months).
+          </figcaption>
+        </figure>
+      </div>
+
+      {/* General description of the three graphs */}
+      <p className="text-slate-400 text-center mt-16 max-w-3xl mx-auto">
+        Together, these spatial maps enable direct visualization of amyloid plaque localization
+        and the spatial extent of plaque-associated cellular environments. Importantly, the
+        observed patterns evolve with disease progression, indicating that the brain regions
+        affected by Alzheimer pathology are not static but change over time as plaques accumulate
+        and expand with age.
+      </p>
+
+    </motion.div>
+  </div>
+</section>
+
+
 
       
       {/* Distance vs Metabolic Score */}
