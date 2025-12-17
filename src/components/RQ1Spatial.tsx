@@ -3,8 +3,8 @@ import { ArrowLeft, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ScatterChart, Scatter, ZAxis } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import globalSpatialMap from '../assets/figure1_global_spatial_map.png';
-import Newplot from '../assets/newplot.png';
+import globalSpatialMap from '../assets/newplot.png';
+
 
 
 export function RQ1Spatial() {
@@ -68,11 +68,11 @@ export function RQ1Spatial() {
               </div>
               <div>
                 <h1 className="text-5xl md:text-6xl gradient-text">Spatial Analysis</h1>
-                <p className="text-slate-400 mt-2">Research Question 1</p>
+
               </div>
             </div>
             <p className="text-xl text-slate-300 max-w-3xl">
-              Does metabolic dysfunction in Alzheimer's follow a spatial gradient around amyloid plaques?
+              Does metabolic dysfunction in Alzheimer's follow a spatial gradient around amyloid plaques ?
             </p>
           </motion.div>
         </div>
@@ -92,9 +92,10 @@ export function RQ1Spatial() {
               <div>
                 <h3 className="text-2xl mb-3 text-purple-300">Key Finding</h3>
                 <p className="text-slate-300">
-                  Metabolic gene expression is significantly reduced in cells within 100 μm of amyloid plaques, 
-                  with oxidative phosphorylation genes showing the strongest suppression. This suggests a spatial gradient 
-                  of metabolic dysfunction radiating from plaque sites.
+                  We investigate whether metabolic and stress-related transcriptional 
+                  programs vary as a function of distance to amyloid plaques in AD mouse models. 
+                  Moreover, we focus on certain gene expression between mice of different age 
+                  and across brian area.
                 </p>
               </div>
             </div>
@@ -137,28 +138,37 @@ export function RQ1Spatial() {
         </figure>
       </div>
 
-      {/* Deuxième image */}
+      {/* Interactive spatial plot */}
       <div className="flex justify-center">
-        <figure className="max-w-5xl">
-          <img
-            src={Newplot} 
-            alt="Description de la deuxième image"
-            className="rounded-xl border border-white/10 shadow-lg"
-          />
-          <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed">
-            <span className="font-semibold text-gray-200">Figure 2.</span>{" "}
-            Légende de ta deuxième image. Décris ici ce que représente cette image.
+        <figure className="w-full max-w-5xl">
+          <div className="w-full rounded-xl border border-white/10 shadow-lg overflow-hidden">
+            <iframe
+              src="/plots/spatial_plot.html"
+              title="Interactive spatial distribution of cell types"
+              className="w-full"
+              style={{
+                border: "none",
+                height: "700px",
+                minHeight: "700px",
+                overflow: "hidden"
+              }}
+              sandbox="allow-same-origin allow-scripts"
+            />
+          </div>
+          <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed text-center">
+            <span className="text-slate-400 text-center mb-8 max-w-2xl mx-auto"> 
+            Interactive spatial distribution of brain cell types in TgCRND8 mice (2.5 months).
+            Each point represents a single cell positioned by its spatial centroid.
+            Hovering reveals cell type-specific information.
+            </span>
           </figcaption>
         </figure>
       </div>
     </motion.div>
   </div>
-</section>
+  </section>
 
-
-
-
-
+      
       {/* Distance vs Metabolic Score */}
       <section className="py-16 bg-[#050814]">
         <div className="container mx-auto px-6">

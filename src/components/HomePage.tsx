@@ -2,6 +2,7 @@ import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, MapPin, Clock, Layers } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import homepagefig from '../assets/homepage.png';
 
 export function HomePage() {
   const features = [
@@ -146,46 +147,51 @@ export function HomePage() {
       </section>
 
       {/* Project Overview */}
-      <section className="py-24 bg-[#050814]">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-4xl md:text-5xl mb-6 gradient-text">Project Overview</h2>
-              <div className="space-y-4 text-slate-300">
-                <p>
-                  Alzheimer's disease is characterized by metabolic dysfunction in the brain caused by the accumulation of toxic proteins, forming microscopic lesions called amyloid plaques.  
-                  This project leverages spatial transcriptomics data to investigate how energy metabolism is affected in mouse models of Alzheimer's disease.
-                </p>
-                <p>
-                  We analyze three critical aspects: the spatial relationship between metabolic dysfunction and amyloid plaques, 
-                  temporal changes across disease progression, and cell-type-specific vulnerabilities to metabolic decline.
-                </p>
-                <p>
-                  By integrating advanced data analysis techniques with biological insights, we aim to uncover patterns that could inform 
-                  therapeutic strategies targeting metabolic dysfunction in Alzheimer's disease.
-                </p>
-              </div>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="relative"
-            >
-            <div className="w-full h-[350px] overflow-hidden rounded-2xl shadow-2xl glow relative">
-              <ImageWithFallback
-                alt="Scientific visualization"
-                className="absolute left-0 top-0 h-full w-[200%] object-cover"
-              />
-          </div>
-            </motion.div>
-          </div>
+<section className="py-24 bg-[#050814]">
+  <div className="container mx-auto px-6">
+    <div className="grid md:grid-cols-2 gap-12 items-center">
+      {/* Texte à gauche */}
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+      >
+        <h2 className="text-4xl md:text-5xl mb-6 gradient-text">Project Overview</h2>
+        <div className="space-y-4 text-slate-300">
+          <p>
+            Alzheimer's disease is characterized by metabolic dysfunction in the brain caused by the accumulation of toxic proteins, forming microscopic lesions called amyloid plaques.
+            This project leverages spatial transcriptomics data to investigate how energy metabolism is affected in mouse models of Alzheimer's disease.
+          </p>
+          <p>
+            We analyze three critical aspects: the spatial relationship between metabolic dysfunction and amyloid plaques,
+            temporal changes across disease progression, and cell-type-specific vulnerabilities to metabolic decline.
+          </p>
+          <p>
+            By integrating advanced data analysis techniques with biological insights, we aim to uncover patterns that could inform
+            therapeutic strategies targeting metabolic dysfunction in Alzheimer's disease.
+          </p>
         </div>
-      </section>
+      </motion.div>
+
+      {/* Image à droite */}
+      <motion.div
+        initial={{ opacity: 0, x: 30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+      >
+        <div className="w-full h-[350px] overflow-hidden rounded-2xl shadow-2xl glow relative">
+          <ImageWithFallback
+            src={homepagefig}
+            alt="Scientific visualization"
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </motion.div>
+    </div>
+  </div>
+</section>
+
+
 
       {/* Dataset & Methods */}
       <section className="py-24 bg-gradient-to-b from-[#050814] to-[#0a0e27]">
