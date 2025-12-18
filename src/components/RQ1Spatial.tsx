@@ -7,7 +7,7 @@ import globalSpatialMap from '../assets/newplot.png';
 import spatial25 from '../assets/spatial_distance_to_plaque_2_5.png';
 import spatial57 from '../assets/spatial_distance_to_plaque_5_7.png';
 import spatial179 from '../assets/spatial_distance_to_plaque_17_9.png';
-import mouseBrainRegions from '../assets/brain_map.jpg'; // Remplace par le vrai nom de ton fichier
+import mouseBrainRegions from '../assets/brain_map.jpg'; 
 
 
 export function RQ1Spatial() {
@@ -108,18 +108,18 @@ export function RQ1Spatial() {
 
 
       {/* Brain Regions Overview */}
-<section className="py-16 bg-[#050814]">
+<section className="py-16" style={{ backgroundColor: '#050814' }}>
   <div className="container mx-auto px-6">
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
     >
-      <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+      <h2 className="text-3xl md:text-4xl mb-4 text-center" style={{ background: 'linear-gradient(to right, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', color: 'transparent' }}>
         Mouse Brain Regions Overview
       </h2>
 
-      <p className="text-slate-400 text-center mb-12 max-w-3xl mx-auto leading-relaxed">
+      <p className="text-center mb-12 max-w-3xl mx-auto leading-relaxed" style={{ color: '#94a3b8' }}>
         Anatomical map of a mouse brain sagittal section, highlighting key regions
         relevant to Alzheimer’s disease research.
       </p>
@@ -130,10 +130,11 @@ export function RQ1Spatial() {
           <img
             src={mouseBrainRegions}
             alt="Sagittal section of a mouse brain with annotated regions"
-            className="rounded-xl border border-white/10 shadow-lg"
+            className="rounded-xl border shadow-lg"
+            style={{ borderColor: 'rgba(255,255,255,0.1)' }}
           />
-          <figcaption className="mt-6 text-sm text-gray-300 leading-relaxed text-center">
-            <span className="font-semibold text-gray-200">Figure 1.</span>{" "}
+          <figcaption className="mt-6 text-sm leading-relaxed text-center" style={{ color: '#cbd5e1' }}>
+            <span style={{ fontWeight: '600', color: '#e5e7eb' }}>Figure 1.</span>{" "}
             Sagittal section of a mouse brain showing major anatomical regions.
             Colors indicate distinct brain areas, referenced in the legend below.
           </figcaption>
@@ -142,7 +143,7 @@ export function RQ1Spatial() {
 
       {/* Brain Regions Legend */}
       <div className="max-w-4xl mx-auto mt-16">
-        <h3 className="text-2xl text-center mb-10 text-purple-300">
+        <h3 className="text-2xl text-center mb-10" style={{ color: '#c084fc' }}>
           Brain Regions Legend
         </h3>
 
@@ -150,12 +151,12 @@ export function RQ1Spatial() {
 
           {/* Cortex */}
           <div className="flex items-start gap-3">
-            <div className="w-4 h-4 rounded-full mt-1 bg-green-700 flex-shrink-0"></div>
+            <div className="w-4 h-4 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: '#166534' }}></div>
             <div>
-              <h4 className="text-lg font-medium text-green-400">
-                Cortex (CTX)
+              <h4 className="text-lg font-medium" style={{ color: '#15803d' }}>
+                Cortex 
               </h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.25rem' }}>
                 Outer layer involved in sensory perception, cognition,
                 and voluntary movement.
               </p>
@@ -164,12 +165,12 @@ export function RQ1Spatial() {
 
           {/* Hippocampus */}
           <div className="flex items-start gap-3">
-            <div className="w-4 h-4 rounded-full mt-1 bg-green-300 flex-shrink-0"></div>
+            <div className="w-4 h-4 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: '#6ee7b7' }}></div>
             <div>
-              <h4 className="text-lg font-medium text-green-300">
-                Hippocampus (HPF)
+              <h4 className="text-lg font-medium" style={{ color: '#6ee7b7' }}>
+                Hippocampus 
               </h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.25rem' }}>
                 Critical for memory formation and spatial navigation.
               </p>
             </div>
@@ -177,12 +178,12 @@ export function RQ1Spatial() {
 
           {/* Thalamus */}
           <div className="flex items-start gap-3">
-            <div className="w-4 h-4 rounded-full mt-1 bg-red-500 flex-shrink-0"></div>
+            <div className="w-4 h-4 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: '#ef4444' }}></div>
             <div>
-              <h4 className="text-lg font-medium text-red-300">
-                Thalamus (TH)
+              <h4 className="text-lg font-medium" style={{ color: '#fca5a5' }}>
+                Thalamus
               </h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.25rem' }}>
                 Sensory relay station involved in consciousness and alertness.
               </p>
             </div>
@@ -190,12 +191,12 @@ export function RQ1Spatial() {
 
           {/* Hypothalamus */}
           <div className="flex items-start gap-3">
-            <div className="w-4 h-4 rounded-full mt-1 bg-red-700 flex-shrink-0"></div>
+            <div className="w-4 h-4 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: '#991b1b' }}></div>
             <div>
-              <h4 className="text-lg font-medium text-red-400">
-                Hypothalamus (HY)
+              <h4 className="text-lg font-medium" style={{ color: '#f87171' }}>
+                Hypothalamus 
               </h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.25rem' }}>
                 Regulates homeostasis: hunger, thirst, sleep,
                 and hormonal responses.
               </p>
@@ -204,12 +205,12 @@ export function RQ1Spatial() {
 
           {/* Striatum */}
           <div className="flex items-start gap-3">
-            <div className="w-4 h-4 rounded-full mt-1 bg-gray-400 flex-shrink-0"></div>
+            <div className="w-4 h-4 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: '#9ca3af' }}></div>
             <div>
-              <h4 className="text-lg font-medium text-gray-300">
+              <h4 className="text-lg font-medium" style={{ color: '#4b5563' }}>
                 Striatum
               </h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.25rem' }}>
                 Involved in motor control, reward, and executive functions.
               </p>
             </div>
@@ -217,12 +218,12 @@ export function RQ1Spatial() {
 
           {/* Amygdala */}
           <div className="flex items-start gap-3">
-            <div className="w-4 h-4 rounded-full mt-1 bg-slate-400 flex-shrink-0"></div>
+            <div className="w-4 h-4 rounded-full mt-1 flex-shrink-0" style={{ backgroundColor: '#cbd5e1' }}></div>
             <div>
-              <h4 className="text-lg font-medium text-slate-300">
+              <h4 className="text-lg font-medium" style={{ color: '#3b82f6' }}>
                 Amygdala
               </h4>
-              <p className="text-slate-400 text-sm leading-relaxed">
+              <p style={{ color: '#94a3b8', fontSize: '0.875rem', lineHeight: '1.25rem' }}>
                 Key for emotion processing, especially fear and aggression.
               </p>
             </div>
@@ -233,15 +234,15 @@ export function RQ1Spatial() {
 
       {/* Description générale */}
       <div className="mt-20">
-        <p className="text-slate-400 text-center max-w-3xl mx-auto leading-relaxed">
+        <p className="text-slate-400 text-center mt-8 max-w-3xl mx-auto leading-relaxed">
           This sagittal section highlights the spatial organization of mouse brain
           regions.
         </p>
 
-        <p className="text-slate-400 text-center mt-4 max-w-3xl mx-auto leading-relaxed">
-          The <span className="text-green-400 font-medium">cortex</span>,{" "}
-          <span className="text-green-300 font-medium">hippocampus</span>, and{" "}
-          <span className="text-red-300 font-medium">thalamus</span> are particularly
+        <p className="text-center mt-4 max-w-3xl mx-auto leading-relaxed" style={{ color: '#94a3b8' }}>
+          The <span style={{ color: '#15803d', fontWeight: '500' }}>cortex</span>,{" "}
+          <span style={{ color: '#6ee7b7', fontWeight: '500' }}>hippocampus</span>, and{" "}
+          <span style={{ color: '#fca5a5', fontWeight: '500' }}>thalamus</span> are particularly
           relevant in Alzheimer’s disease research, as they are affected by amyloid
           plaque accumulation and metabolic dysfunction.
         </p>
@@ -279,7 +280,7 @@ export function RQ1Spatial() {
           />
           <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed">
             <span className="font-semibold text-gray-200">Figure 1.</span>{" "}
-            Global spatial map of all detected cells across wild-type and TgCRND8 mouse
+            Global spatial map of all detected cells across TgCRND8 mouse
             brain samples. Each point represents a single cell positioned according to
             its spatial centroid. This visualization provides an overview of tissue
             geometry and spatial coverage, forming the basis for subsequent
