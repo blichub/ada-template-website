@@ -8,39 +8,35 @@ export function About() {
   const teamMembers = [
     {
       name: 'Flavie Arod',
-      role: 'Spatial analysis & Visualization',
+      role: 'Spatial analysis, Visualization and Web Development',
       github: 'https://github.com',
       linkedin: 'https://linkedin.com/in/flaviearod',
       email: 'flavie.arod@epfl.ch',
     },
     {
-      name: 'Team Member 2',
-      role: 'Bioinformatics & Statistics',
-      bio: 'Expert in statistical modeling and machine learning for genomics. Focused on developing robust analytical pipelines.',
+      name: 'Clara Gentile',
+      role: 'Cell-type specificity',
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
       email: 'member2@epfl.ch',
     },
     {
-      name: 'Team Member 3',
-      role: 'Neuroscience & Interpretation',
-      bio: 'Background in neuroscience and molecular biology. Translates computational findings into biological insights.',
+      name: 'Nour Ben Jaafar',
+      role: 'Temporal analysis',
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
       email: 'member3@epfl.ch',
     },
     {
-      name: 'Team Member 4',
-      role: 'Web Development & Communication',
-      bio: 'Full-stack developer with interest in data storytelling. Creates interactive visualizations to communicate research findings.',
+      name: 'Antonio Del Priore Antunes',
+      role: 'Data cleaning & preprocessing',
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
       email: 'member4@epfl.ch',
     },
     {
-      name: 'Team Member 5',
-      role: 'Web Development & Communication',
-      bio: 'Full-stack developer with interest in data storytelling. Creates interactive visualizations to communicate research findings.',
+      name: 'Ali Shenaskhosh',
+      role: 'Data cleaning & preprocessing',
       github: 'https://github.com',
       linkedin: 'https://linkedin.com',
       email: 'member4@epfl.ch',
@@ -106,7 +102,7 @@ export function About() {
                 <h3 className="text-xl text-blue-400 mb-4">Course</h3>
                 <p className="text-slate-300 mb-2">Applied Data Analysis (CS-401)</p>
                 <p className="text-slate-400">École Polytechnique Fédérale de Lausanne (EPFL)</p>
-                <p className="text-slate-400">Fall 2024</p>
+                <p className="text-slate-400">Fall 2025</p>
               </div>
 
               <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
@@ -151,9 +147,6 @@ export function About() {
             <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
               Our Team
             </h2>
-            <p className="text-slate-400 text-center mb-12 max-w-2xl mx-auto">
-              A multidisciplinary team combining expertise in data science, bioinformatics, neuroscience, and web development
-            </p>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
               {teamMembers.map((member, index) => (
@@ -174,8 +167,6 @@ export function About() {
                       <p className="text-blue-400">{member.role}</p>
                     </div>
                   </div>
-                  
-                  <p className="text-slate-300 mb-4">{member.bio}</p>
 
                   <div className="flex items-center gap-4">
                     <a

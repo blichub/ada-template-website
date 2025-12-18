@@ -333,8 +333,12 @@ export function RQ1Spatial() {
         Spatial distance to amyloid plaques
       </h2>
 
+      <p className="text-slate-300 text-center mb-8 italic">
+        Now let's see where are located those famous amyloid plaques.
+      </p>
+
         <p className="text-slate-400 text-center mb-16 max-w-3xl mx-auto">
-        Spatial maps showing the distance of each cell to its nearest amyloid plaque
+        Here we can see spatial maps showing the distance of each cell to its nearest amyloid plaque,
         across three TgCRND8 Alzheimer’s disease mouse models at different ages.
 
       </p>
@@ -383,18 +387,16 @@ export function RQ1Spatial() {
       </div>
 
       {/* General description of the three graphs */}
-      <p className="text-slate-400 text-center mt-16 max-w-3xl mx-auto">
+      <p className="text-slate-300 text-center mt-16 max-w-3xl mx-auto">
         Together, these spatial maps enable direct visualization of amyloid plaque localization
         and the spatial extent of plaque-associated cellular environments. Importantly, the
         observed patterns evolve with disease progression, indicating that the brain regions
         affected by Alzheimer pathology are not static but change over time as plaques accumulate
         and expand with age.
       </p>
-
     </motion.div>
   </div>
 </section>
-
 
 
       
@@ -409,8 +411,10 @@ export function RQ1Spatial() {
             <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
               Metabolic Activity vs. Distance from Plaques
             </h2>
-            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              Cells closer to amyloid plaques show progressively lower metabolic gene expression
+
+            <p className="text-slate-300 text-center mb-8 italic">
+              We can now compute and calculate the energy level of cells at different distances from amyloid plaques. 
+              It will allow us to immediately see the effect of plaques on cellular metabolism.
             </p>
 
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
@@ -469,73 +473,89 @@ export function RQ1Spatial() {
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              This pattern indicates a localized energy deficit around the plaques. Astrocytes and neurons in close proximity to the plaques experience a more pronounced energetic impairment.
+            <p className="text-slate-300 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+              To quantify cellular energy levels, we calculated a composite <strong>EnergyScore</strong> for each cell.
+              This score integrates the average expression of genes involved in critical metabolic pathways : 
+              mitochondrial function, lipid metabolism, glucose transport, and synaptic energy demand.
+            </p>
+
+            <p className="text-slate-300 text-center mb-8 max-w-3xl mx-auto leading-relaxed">
+              The resulting spatial profile reveals a <strong>sharp energy deficit</strong> in cells located within 50 µm of amyloid plaques,
+              followed by a <strong>gradual recovery</strong> as distance increases.
+              This pattern underscores how plaques disrupt local energy balance, a key feature of Alzheimer's disease progression.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Gene Expression Comparison */}
-      <section className="py-16 bg-gradient-to-b from-[#050814] to-[#0a0e27]">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
-              Gene Expression: Near vs. Far from Plaques
-            </h2>
-            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              Comparison of key metabolic genes in cells near {'(<100 μm)'} and far {'(>200 μm)'} from plaques
-            </p>
+<section className="py-16 bg-gradient-to-b from-[#050814] to-[#0a0e27]">
+  <div className="container mx-auto px-6">
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+    >
+      <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+        Gene Expression: Near vs. Far from Plaques
+      </h2>
+      <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+        Comparison of key metabolic genes in cells near {'(<100 μm)'} and far {'(>200 μm)'} from plaques
+      </p>
 
-            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={geneExpressionData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="gene" stroke="#94a3b8" />
-                  <YAxis 
-                    stroke="#94a3b8"
-                    label={{ value: 'Expression Level', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
-                  />
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
-                    labelStyle={{ color: '#e2e8f0' }}
-                  />
-                  <Legend />
-                  <Bar dataKey="nearPlaque" fill="#ef4444" name="Near Plaque" />
-                  <Bar dataKey="farPlaque" fill="#10b981" name="Far from Plaque" />
-                </BarChart>
-              </ResponsiveContainer>
-            </div>
+      <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
+        <ResponsiveContainer width="100%" height={400}>
+          <BarChart data={geneExpressionData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+            <XAxis dataKey="gene" stroke="#94a3b8" />
+            <YAxis
+              stroke="#94a3b8"
+              label={{ value: 'Expression Level', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
+            />
+            <Tooltip
+              contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+              labelStyle={{ color: '#e2e8f0' }}
+            />
+            <Legend />
+            <Bar dataKey="nearPlaque" fill="#ef4444" name="Near Plaque" />
+            <Bar dataKey="farPlaque" fill="#10b981" name="Far from Plaque" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
 
-            <div className="mt-8 grid md:grid-cols-3 gap-4">
-              <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
-                <h4 className="text-blue-400 mb-2">Mitochondrial Gene</h4>
-                <p className="text-slate-300">
-                  Mitochondrial dysfunction is an early marker of Alzheimer's disease. Gatm is involved in creatine metabolism, which is essential for energy production in neuronal cells.
-                  <b>Gatm</b> expression level decreases by 30% near plaques.
-                </p>
-              </div>
-              <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
-                <h4 className="text-purple-400 mb-2">Lipid metabolism</h4>
-                <p className="text-slate-300">
-                  Apoe est le gène de susceptibilité le plus fort pour la maladie d’Alzheimer, impliqué dans le transport du cholestérol et la clairance de l’amyloïde.
-                  Apoe shows a reduction of 24% near plaques, LDHA relatively preserved
-                </p>
-              </div>
-              <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
-                <h4 className="text-green-400 mb-2">Redox lysosomal metabolism</h4>
-                <p className="text-slate-300">
-                  Gpx4 decreases by 47% near plaques, indicating increased oxidative stress. Igf1 remains stable, suggesting growth factor signaling is less affected. Ctsd, involved in lysosomal function, decreases by 28% near plaques.
-                </p>
-              </div>
-            </div>
-          </motion.div>
+      <div className="mt-8 grid md:grid-cols-3 gap-4">
+        <div className="bg-blue-900/20 border border-blue-500/30 rounded-lg p-4">
+          <h4 className="text-blue-400 mb-2">Mitochondrial Gene</h4>
+          <p className="text-slate-300">
+            Mitochondrial dysfunction is an early marker of Alzheimer's disease.
+            Gatm is involved in creatine metabolism, essential for energy production in neuronal cells.
+            Its expression shows a 30% decrease near plaques, highlighting a significant reduction in energy capacity.
+          </p>
         </div>
-      </section>
+        <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
+          <h4 className="text-purple-400 mb-2">Lipid metabolism</h4>
+          <p className="text-slate-300">
+            ApoE is the main genetic risk factor for Alzheimer’s disease.
+            It is involved in lipid transport in the brain.
+            ApoE shows a 24% reduction in expression near plaques, indicating impaired lipid metabolism in these regions.
+          </p>
+        </div>
+        <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
+          <h4 className="text-green-400 mb-2">Redox lysosomal metabolism</h4>
+          <p className="text-slate-300">
+            Gpx4 decreases by 47% near plaques, indicating increased oxidative stress.
+            Igf1 remains stable, suggesting growth factor signaling is less affected.
+            Ctsd, involved in lysosomal function, decreases by 28% near plaques.
+          </p>
+        </div>
+      </div>
+      <p className="text-slate-300 mt-2 italic">
+        Overall, we can say that most genes show reduced expression near amyloid plaques, except for growth factor genes like IGF1, which appear unaffected. This suggests that amyloid plaques disrupt cellular homeostasis and energy balance.
+      </p>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Spatial Distribution */}
       <section className="py-16 bg-[#0a0e27]">
