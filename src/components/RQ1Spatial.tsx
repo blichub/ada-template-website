@@ -8,6 +8,21 @@ import spatial25 from '../assets/spatial_distance_to_plaque_2_5.png';
 import spatial57 from '../assets/spatial_distance_to_plaque_5_7.png';
 import spatial179 from '../assets/spatial_distance_to_plaque_17_9.png';
 import mouseBrainRegions from '../assets/brain_map.jpg'; 
+import Plot from "react-plotly.js";
+import figData from "../assets/spatial_plot_data_2.json";
+
+export default function SpatialPlot() {
+  const fig = JSON.parse(JSON.stringify(figData)); // convert JSON en objet JS
+
+  return (
+    <Plot
+      data={fig.data}
+      layout={fig.layout}
+      config={{ responsive: true, displayModeBar: true }}
+      style={{ width: "100%", height: "700px" }}
+    />
+  );
+}
 
 
 export function RQ1Spatial() {
@@ -27,17 +42,6 @@ export function RQ1Spatial() {
     { gene: 'Gpx4', nearPlaque: 1.93, farPlaque: 3.61, category: 'Oxidative stress' },
     { gene: 'Igf1', nearPlaque: 0.13, farPlaque: 0.12, category: 'Growth factor' },
     { gene: 'Ctsd', nearPlaque: 2.13, farPlaque: 2.95, category: 'Redox lysosomal metabolism' },
-  ];
-
-  const spatialHeatmap = [
-    { x: 20, y: 30, z: 95, type: 'far' },
-    { x: 35, y: 45, z: 88, type: 'far' },
-    { x: 50, y: 20, z: 45, type: 'near' },
-    { x: 52, y: 22, z: 42, type: 'near' },
-    { x: 48, y: 18, z: 48, type: 'near' },
-    { x: 75, y: 60, z: 92, type: 'far' },
-    { x: 15, y: 70, z: 90, type: 'far' },
-    { x: 85, y: 35, z: 87, type: 'far' },
   ];
 
   return (
@@ -134,7 +138,6 @@ export function RQ1Spatial() {
             style={{ borderColor: 'rgba(255,255,255,0.1)' }}
           />
           <figcaption className="mt-6 text-sm leading-relaxed text-center" style={{ color: '#cbd5e1' }}>
-            <span style={{ fontWeight: '600', color: '#e5e7eb' }}>Figure 1.</span>{" "}
             Sagittal section of a mouse brain showing major anatomical regions.
             Colors indicate distinct brain areas, referenced in the legend below.
           </figcaption>
@@ -252,10 +255,7 @@ export function RQ1Spatial() {
   </div>
 </section>
 
-
-
-
-        {/* Global spatial map */}
+    {/* Global spatial map */}
 <section className="py-16 bg-[#050814]">
   <div className="container mx-auto px-6">
     <motion.div
@@ -266,62 +266,36 @@ export function RQ1Spatial() {
       <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
         Global spatial organization of brain cells
       </h2>
+
       <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-        Let's first take a look at the overall spatial distribution of cells across mouse brain samples.
+        Let’s first take a look at the overall spatial distribution of cells across mouse brain samples.
       </p>
 
-      {/* Première image */}
-      <div className="flex justify-center mb-8">
-        <figure className="max-w-5xl">
-          <img
-            src={globalSpatialMap}
-            alt="Global spatial distribution of cells across mouse brain samples"
-            className="rounded-xl border border-white/10 shadow-lg"
-          />
-          <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed">
-            <span className="font-semibold text-gray-200">Figure 1.</span>{" "}
-            Global spatial map of all detected cells across TgCRND8 mouse
-            brain samples. Each point represents a single cell positioned according to
-            its spatial centroid. This visualization provides an overview of tissue
-            geometry and spatial coverage, forming the basis for subsequent
-            plaque-centered distance analyses.
-          </figcaption>
-        </figure>
-      </div>
 
-      {/* Interactive spatial plot */}
+      {/* Interactive spatial plot using Plotly */}
       <div className="flex justify-center">
         <figure className="w-full max-w-5xl">
           <div className="w-full rounded-xl border border-white/10 shadow-lg overflow-hidden">
-            <iframe
-              src="/plots/spatial_plot.html"
-              title="Interactive spatial distribution of cell types"
-              className="w-full"
-              style={{
-                border: "none",
-                height: "700px",
-                minHeight: "700px",
-                overflow: "hidden"
-              }}
-              sandbox="allow-same-origin allow-scripts"
-            />
+            <SpatialPlot /> 
           </div>
           <figcaption className="mt-4 text-sm text-gray-300 leading-relaxed text-center">
-            <span className="text-slate-400 text-center mb-8 max-w-2xl mx-auto"> 
             Interactive spatial distribution of brain cell types in TgCRND8 mice (2.5 months).
             Each point represents a single cell positioned by its spatial centroid.
-            Hovering reveals cell type-specific information.
-            </span>
+            This visualization provides an overview of tissue geometry and spatial coverage, 
+            forming the basis for subsequent plaque-centered distance analyses.
           </figcaption>
         </figure>
       </div>
+
     </motion.div>
   </div>
-  </section>
+</section>
 
 
 
-        {/* Image Gallery Section */}
+
+
+        {/* Spatial distance to amyloid plaques */}
 <section className="py-16 bg-[#0a0e27]">
   <div className="container mx-auto px-6">
     <motion.div
@@ -334,13 +308,19 @@ export function RQ1Spatial() {
       </h2>
 
       <p className="text-slate-300 text-center mb-8 italic">
-        Now let's see where are located those famous amyloid plaques.
+        Now let’s see where are located those famous amyloid plaques.
       </p>
 
-        <p className="text-slate-400 text-center mb-16 max-w-3xl mx-auto">
-        Here we can see spatial maps showing the distance of each cell to its nearest amyloid plaque,
-        across three TgCRND8 Alzheimer’s disease mouse models at different ages.
-
+      {/* Methodological description */}
+      <p className="text-slate-400 text-center mb-16 max-w-3xl mx-auto">
+        To investigate whether Alzheimer’s pathology induces spatial gradients in cellular metabolism,
+        we quantified the distance between individual cells and amyloid plaques in three TgCRND8
+        Alzheimer’s mice (2.5, 5.7 and 17.9 months). Amyloid plaques were first localized by identifying
+        plaque-associated marker genes (e.g. <em>App</em>, <em>Apoe</em>, <em>Trem2</em>, <em>Cst3</em>, <em>Gfap</em>).
+        For each mouse, plaque centroids were computed either from transcript clustering or, when
+        necessary, using marker-based scores as a fallback. Each cell’s spatial coordinates (X, Y)
+        were then used to compute the Euclidean distance to the nearest plaque centroid, providing
+        a continuous measure of proximity to plaques at single-cell resolution.
       </p>
 
       {/* Gallery Grid */}
@@ -368,7 +348,7 @@ export function RQ1Spatial() {
           />
           <figcaption className="p-4 text-sm text-gray-300">
             <span className="font-semibold text-gray-200">Figure B.</span>{" "}
-            Increased plaque burden and altered spatial gradients in TgCRND8 mice at 5 months.
+            Spatial distance to the nearest amyloid plaque in TgCRND8 mice at 5.7 months.
           </figcaption>
         </figure>
 
@@ -381,19 +361,29 @@ export function RQ1Spatial() {
           />
           <figcaption className="p-4 text-sm text-gray-300">
             <span className="font-semibold text-gray-200">Figure C.</span>{" "}
-            Dense plaque-associated spatial gradients in advanced-stage TgCRND8 mice (17 months).
+            Spatial distance to the nearest amyloid plaque in TgCRND8 mice at 17.9 months.
           </figcaption>
         </figure>
       </div>
 
-      {/* General description of the three graphs */}
-      <p className="text-slate-300 text-center mt-16 max-w-3xl mx-auto">
-        Together, these spatial maps enable direct visualization of amyloid plaque localization
-        and the spatial extent of plaque-associated cellular environments. Importantly, the
-        observed patterns evolve with disease progression, indicating that the brain regions
-        affected by Alzheimer pathology are not static but change over time as plaques accumulate
-        and expand with age.
-      </p>
+      {/* Interpretation of color scale */}
+      <div className="text-slate-300 text-center mt-16 max-w-3xl mx-auto space-y-4">
+        <p>
+          The resulting maps display cells color-coded by their distance to the closest plaque:
+        </p>
+        <ul className="list-disc list-inside text-slate-300 text-left mx-auto max-w-xl">
+          <li><span className="font-semibold">Blue / purple</span> colors indicate cells located close to plaques</li>
+          <li><span className="font-semibold">Yellow / green</span> colors indicate cells farther away from plaques</li>
+        </ul>
+        <p>
+          This representation allows a direct visualization of plaque-centered spatial gradients.
+          Cells in close proximity to plaques are expected to be more strongly affected by
+          plaque-associated processes such as metabolic dysfunction, oxidative stress, or
+          inflammation. These distance measurements were subsequently used to analyze how energy
+          and stress-related gene expression profiles vary as a function of distance from amyloid
+          plaques.
+        </p>
+      </div>
     </motion.div>
   </div>
 </section>
@@ -497,10 +487,11 @@ export function RQ1Spatial() {
       viewport={{ once: true }}
     >
       <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
-        Gene Expression: Near vs. Far from Plaques
+        Gene Expression : Near vs. Far from Plaques
       </h2>
       <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-        Comparison of key metabolic genes in cells near {'(<100 μm)'} and far {'(>200 μm)'} from plaques
+        After comparing cells energy scores, we can now look at specific gene expression changes.
+        Here is a comparison of key metabolic genes in cells near {'(<100 μm)'} and far {'(>200 μm)'} from plaques
       </p>
 
       <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
@@ -528,132 +519,106 @@ export function RQ1Spatial() {
           <h4 className="text-blue-400 mb-2">Mitochondrial Gene</h4>
           <p className="text-slate-300">
             Mitochondrial dysfunction is an early marker of Alzheimer's disease.
-            Gatm is involved in creatine metabolism, essential for energy production in neuronal cells.
-            Its expression shows a 30% decrease near plaques, highlighting a significant reduction in energy capacity.
+            <strong> Gatm</strong> is involved in creatine metabolism, essential for energy production in neuronal cells.
+            Its expression shows a <strong>30% decrease</strong> near plaques, highlighting a significant reduction in energy capacity.
           </p>
         </div>
         <div className="bg-purple-900/20 border border-purple-500/30 rounded-lg p-4">
           <h4 className="text-purple-400 mb-2">Lipid metabolism</h4>
           <p className="text-slate-300">
-            ApoE is the main genetic risk factor for Alzheimer’s disease.
+            <strong>ApoE</strong> is the main genetic risk factor for Alzheimer’s disease.
             It is involved in lipid transport in the brain.
-            ApoE shows a 24% reduction in expression near plaques, indicating impaired lipid metabolism in these regions.
+            ApoE shows a <strong>24% reduction</strong> in expression near plaques, indicating impaired lipid metabolism in these regions.
           </p>
         </div>
         <div className="bg-green-900/20 border border-green-500/30 rounded-lg p-4">
           <h4 className="text-green-400 mb-2">Redox lysosomal metabolism</h4>
           <p className="text-slate-300">
-            Gpx4 decreases by 47% near plaques, indicating increased oxidative stress.
-            Igf1 remains stable, suggesting growth factor signaling is less affected.
-            Ctsd, involved in lysosomal function, decreases by 28% near plaques.
+            <strong>Gpx4 decreases by 47%</strong> near plaques, indicating increased oxidative stress.
+            <strong> Igf1</strong> remains stable, suggesting growth factor signaling is less affected.
+            <strong> Ctsd</strong>, involved in lysosomal function, <strong>decreases by 28%</strong> near plaques.
           </p>
         </div>
       </div>
       <p className="text-slate-300 mt-2 italic">
-        Overall, we can say that most genes show reduced expression near amyloid plaques, except for growth factor genes like IGF1, which appear unaffected. This suggests that amyloid plaques disrupt cellular homeostasis and energy balance.
+        Overall, we can say that most genes show <strong>reduced expression</strong> near amyloid plaques, 
+        except for growth factor genes like Igf1, which appear unaffected. 
+        This suggests that amyloid plaques <strong>disrupt cellular homeostasis and energy balance</strong>.
       </p>
     </motion.div>
   </div>
 </section>
 
 
-      {/* Spatial Distribution */}
-      <section className="py-16 bg-[#0a0e27]">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
-              Spatial Distribution of Metabolic Activity
-            </h2>
-            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              2D spatial map showing metabolic scores across tissue sections
-            </p>
-
-            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
-              <ResponsiveContainer width="100%" height={400}>
-                <ScatterChart>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis 
-                    type="number" 
-                    dataKey="x" 
-                    name="X Position" 
-                    stroke="#94a3b8"
-                    label={{ value: 'X Position (μm)', position: 'insideBottom', offset: -5, fill: '#94a3b8' }}
-                  />
-                  <YAxis 
-                    type="number" 
-                    dataKey="y" 
-                    name="Y Position" 
-                    stroke="#94a3b8"
-                    label={{ value: 'Y Position (μm)', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
-                  />
-                  <ZAxis type="number" dataKey="z" range={[100, 1000]} name="Metabolic Score" />
-                  <Tooltip 
-                    cursor={{ strokeDasharray: '3 3' }}
-                    contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
-                  />
-                  <Legend />
-                  <Scatter 
-                    name="Near Plaque" 
-                    data={spatialHeatmap.filter(d => d.type === 'near')} 
-                    fill="#ef4444" 
-                  />
-                  <Scatter 
-                    name="Far from Plaque" 
-                    data={spatialHeatmap.filter(d => d.type === 'far')} 
-                    fill="#10b981" 
-                  />
-                </ScatterChart>
-              </ResponsiveContainer>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Conclusions */}
-      <section className="py-16 bg-gradient-to-b from-[#0a0e27] to-[#050814]">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
-            <h2 className="text-3xl md:text-4xl mb-8 text-center gradient-text">
-              Conclusions
-            </h2>
+        <section className="py-16 bg-gradient-to-b from-[#0a0e27] to-[#050814]">
+          <div className="container mx-auto px-6">
+             <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="max-w-4xl mx-auto"
+            >
+              <h2 className="text-3xl md:text-4xl mb-8 text-center gradient-text">
+                Conclusions
+              </h2>
 
             <div className="space-y-6">
-              <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
-                <h3 className="text-xl text-blue-400 mb-3">Spatial Gradient of Dysfunction</h3>
-                <p className="text-slate-300">
-                  A clear spatial gradient exists, with metabolic gene expression declining as proximity to amyloid plaques increases. 
-                  This suggests that plaques create a toxic microenvironment affecting nearby cells.
-                </p>
-              </div>
 
               <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
-                <h3 className="text-xl text-purple-400 mb-3">OXPHOS Vulnerability</h3>
+                <h3 className="text-xl text-blue-400 mb-3">
+                  Plaque-centered spatial gradients
+                </h3>
                 <p className="text-slate-300">
-                  Oxidative phosphorylation genes are most severely affected, indicating mitochondrial dysfunction 
-                  as a primary consequence of plaque proximity.
+                  By explicitly quantifying the Euclidean distance between individual cells and amyloid plaques,
+                  we demonstrate that Alzheimer’s pathology is organized around plaques in a spatially structured manner.
+                  Cells located in close proximity to plaques consistently exhibit altered metabolic and stress-related
+                  transcriptional profiles, supporting the existence of plaque-centered microenvironments.
                 </p>
-              </div>
-
-              <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
-                <h3 className="text-xl text-green-400 mb-3">Therapeutic Implications</h3>
-                <p className="text-slate-300">
-                  Targeting metabolic support in regions surrounding plaques could be a promising therapeutic strategy 
-                  to preserve cellular function in affected brain regions.
-                </p>
-              </div>
-            </div>
-          </motion.div>
         </div>
-      </section>
+
+        <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
+          <h3 className="text-xl text-purple-400 mb-3">
+            Local metabolic vulnerability
+          </h3>
+          <p className="text-slate-300">
+            The sharp decrease in energy-related scores and the downregulation of mitochondrial and redox genes
+            within the first tens of micrometers from plaques indicate a strong local impairment of cellular
+            energy homeostasis. This effect progressively attenuates with distance, suggesting that metabolic
+            dysfunction is not uniform across the tissue but spatially constrained.
+          </p>
+        </div>
+
+        <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
+          <h3 className="text-xl text-green-400 mb-3">
+            Disease progression and regional context
+          </h3>
+          <p className="text-slate-300">
+            Comparing mice at different ages further reveals that these spatial gradients intensify with disease
+            progression, consistent with increasing plaque burden. Moreover, the anatomical context of affected
+            cells suggests that vulnerable brain regions such as cortex and hippocampus may experience distinct
+            metabolic stresses depending on their spatial relationship to plaques.
+          </p>
+        </div>
+
+        <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
+          <h3 className="text-xl text-yellow-400 mb-3">
+            Implications for Alzheimer’s pathology
+          </h3>
+          <p className="text-slate-300">
+            Together, these results support a model in which amyloid plaques act as localized hubs of metabolic
+            and oxidative stress, reshaping the surrounding cellular landscape. This spatial framework provides
+            a mechanistic basis for linking plaque accumulation to downstream cellular dysfunction and motivates
+            distance-aware analyses when investigating neurodegenerative processes and potential therapeutic
+            interventions.
+          </p>
+        </div>
+
+      </div>
+    </motion.div>
+  </div>
+</section>
+
     </div>
   );
 }
