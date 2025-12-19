@@ -367,23 +367,35 @@ export function RQ1Spatial() {
       </div>
 
       {/* Interpretation of color scale */}
-      <div className="text-slate-300 text-center mt-16 max-w-3xl mx-auto space-y-4">
-        <p>
-          The resulting maps display cells color-coded by their distance to the closest plaque:
-        </p>
-        <ul className="list-disc list-inside text-slate-300 text-left mx-auto max-w-xl">
-          <li><span className="font-semibold">Blue / purple</span> colors indicate cells located close to plaques</li>
-          <li><span className="font-semibold">Yellow / green</span> colors indicate cells farther away from plaques</li>
-        </ul>
-        <p>
-          This representation allows a direct visualization of plaque-centered spatial gradients.
-          Cells in close proximity to plaques are expected to be more strongly affected by
-          plaque-associated processes such as metabolic dysfunction, oxidative stress, or
-          inflammation. These distance measurements were subsequently used to analyze how energy
-          and stress-related gene expression profiles vary as a function of distance from amyloid
-          plaques.
-        </p>
-      </div>
+<div className="text-slate-300 text-center mt-16 max-w-3xl mx-auto space-y-6">
+  <p className="text-lg font-medium">
+    The resulting maps display cells color-coded by their distance to the closest plaque:
+  </p>
+
+  <div className="flex justify-center">
+    <ul className="list-none space-y-3 text-left">
+      <li className="flex items-start gap-2">
+        <span className="font-semibold text-blue-300">•</span>
+        <span><span className="font-semibold">Blue / purple</span> colors indicate cells located close to plaques</span>
+      </li>
+      <li className="flex items-start gap-2">
+        <span className="font-semibold text-yellow-300">•</span>
+        <span><span className="font-semibold">Yellow / green</span> colors indicate cells farther away from plaques</span>
+      </li>
+    </ul>
+  </div>
+
+  <p className="text-slate-300 mt-4">
+    This representation allows a direct visualization of plaque-centered spatial gradients.
+    Cells in close proximity to plaques are expected to be more strongly affected by
+    plaque-associated processes such as metabolic dysfunction, oxidative stress, or
+    inflammation. These distance measurements were subsequently used to analyze how energy
+    and stress-related gene expression profiles vary as a function of distance from amyloid
+    plaques.
+  </p>
+</div>
+
+
     </motion.div>
   </div>
 </section>
