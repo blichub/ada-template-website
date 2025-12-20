@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, Layers, AlertTriangle, TrendingDown } from 'lucide-react';
+import { ArrowLeft, Layers, ClipboardList, Share2, Network, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell, PieChart, Pie } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -235,8 +235,8 @@ export function RQ3CellTypes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <AlertTriangle className="size-6 text-teal-300" />
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <ClipboardList className="size-6 text-teal-300" />
               <h2 className="text-3xl md:text-4xl gradient-text">
                 Cell-type specific differential expression 
               </h2>
@@ -262,8 +262,8 @@ export function RQ3CellTypes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <AlertTriangle className="size-6 text-indigo-300" />
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <Share2 className="size-6 text-indigo-300" />
               <h2 className="text-3xl md:text-4xl gradient-text">
                 Cell-type x plaque distance interaction 
               </h2>
@@ -289,8 +289,8 @@ export function RQ3CellTypes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <AlertTriangle className="size-6 text-rose-300" />
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <Network className="size-6 text-rose-300" />
               <h2 className="text-3xl md:text-4xl gradient-text">
                 Cell-type correlation networks
               </h2>
@@ -316,8 +316,8 @@ export function RQ3CellTypes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <AlertTriangle className="size-6 text-amber-300" />
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <MapPin className="size-6 text-amber-300" />
               <h2 className="text-3xl md:text-4xl gradient-text">
                 Cell-type proportions and spatial distribution 
               </h2>
