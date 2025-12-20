@@ -89,6 +89,8 @@ export function RQ3CellTypes() {
         </div>
       </section>
 
+
+
       {/* Key Finding */}
       <section className="py-16 bg-[#050814]">
         <div className="container mx-auto px-6">
@@ -113,6 +115,8 @@ export function RQ3CellTypes() {
           </motion.div>
         </div>
       </section>
+
+
 
       {/* Cell Type Fractions */}
       <section className="py-16 bg-[#050814]">
@@ -160,6 +164,8 @@ export function RQ3CellTypes() {
           </motion.div>
         </div>
       </section>
+
+
 
       {/* Cell Type Comparison */}
       <section className="py-16 bg-[#050814]">

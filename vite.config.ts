@@ -1,17 +1,10 @@
 
 
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
-import path from "path";
-
-export default defineConfig(({ mode }) => ({
-  plugins: [react()],
-
-  // ✅ dev works at "/" ; production can work under "/ada-template-website/"
-  base: mode === "production" ? "/ada-template-website/" : "/",
-
-  resolve: {
-    extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+  export default defineConfig({
+    base: '/ada-template-website/',
+    plugins: [react()],
+    resolve: {
+      extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
         'vaul@1.1.2': 'vaul',
         'sonner@2.0.3': 'sonner',
