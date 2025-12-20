@@ -2,7 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/HomePage';
 import { RQ1Spatial } from './components/RQ1Spatial';
-import { RQ2Temporal } from './components/RQ2Temporal';
+import  { RQ2Temporal } from './components/RQ2Temporal';
+
 import { RQ3CellTypes } from './components/RQ3CellTypes';
 import { About } from './components/About';
 import { ScrollToTop } from './components/ScrollToTop';
