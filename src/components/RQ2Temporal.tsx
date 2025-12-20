@@ -1,5 +1,6 @@
+
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Clock, TrendingUp, AlertTriangle } from "lucide-react";
 import {
@@ -498,7 +499,7 @@ function PCATooltip({ active, payload }: any) {
    Main component
 --------------------------- */
 export function RQ2Temporal() {
-  const base = "/data/website_rq2_temporal";
+  const base = "public/data/website_rq2_temporal";
 
   // Helpers MUST live here (not between JSX)
   const dashForCluster = (clusterId: number) => (clusterId % 2 === 0 ? "0" : "6 6");
@@ -1111,3 +1112,4 @@ export function RQ2Temporal() {
     </div>
   );
 }
+
