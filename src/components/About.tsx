@@ -15,7 +15,7 @@ export function About() {
     },
     {
       name: 'Clara Gentile',
-      role: 'Cell-type specificity',
+      role: 'Gene selection, Cell-type specificity',
       github: 'https://github.com/claragentile11',
       linkedin: 'https://linkedin.com',
       email: 'clara.gentile@epfl.ch',
