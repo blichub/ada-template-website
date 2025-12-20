@@ -18,7 +18,7 @@ export function About() {
       role: 'Cell-type specificity',
       github: 'https://github.com/claragentile11',
       linkedin: 'https://linkedin.com',
-      email: 'member2@epfl.ch',
+      email: 'clara.gentile@epfl.ch',
     },
     {
       name: 'Nour Ben Jaafar',
