@@ -83,7 +83,7 @@ export function RQ3CellTypes() {
               </div>
             </div>
             <p className="text-xl text-slate-300 max-w-3xl">
-              Which cell types are most affected by metabolic decline?
+            Do different cell types exhibit distinct metabolic responses to Alzheimer's pathology?
             </p>
           </motion.div>
         </div>
