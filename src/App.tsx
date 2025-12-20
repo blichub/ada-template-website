@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { HashRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { Navigation } from "./components/Navigation";
 import { HomePage } from "./components/HomePage";
@@ -11,7 +11,7 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { DatasetMethods } from "./components/dataset_methods";
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <ScrollToTop />
 
       <div className="min-h-screen bg-[#0a0e27]">
@@ -32,6 +32,6 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
