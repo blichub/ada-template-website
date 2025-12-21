@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { ArrowLeft, Layers, AlertTriangle, TrendingDown } from 'lucide-react';
+import { ArrowLeft, Layers, ClipboardList, Share2, Network, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell, PieChart, Pie } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -223,6 +223,112 @@ export function RQ3CellTypes() {
                   </div>
                 );
               })}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+      {/* Task 4.2 */}
+      <section className="py-16 bg-[#050814]">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <ClipboardList className="size-6 text-teal-300" />
+              <h2 className="text-3xl md:text-4xl gradient-text">
+                Cell-type specific differential expression 
+              </h2>
+            </div>
+            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+              Subset each cell type, compare AD vs Control per category, and apply multiple testing correction.
+            </p>
+            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+              <p className="text-slate-300">
+                Output results to results/rq3_celltype_DE.csv with columns: cell_type, category, mean_AD,
+                mean_Control, log2FC, pval, qval.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Task 4.3 */}
+      <section className="py-16 bg-[#050814]">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <Share2 className="size-6 text-indigo-300" />
+              <h2 className="text-3xl md:text-4xl gradient-text">
+                Cell-type x plaque distance interaction 
+              </h2>
+            </div>
+            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+              Test whether spatial gradients differ between neurons and glia using a three-way comparison.
+            </p>
+            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+              <p className="text-slate-300">
+                Deliverables include an interaction plot (expression vs distance, faceted by cell type) and
+                an ANOVA results table.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Task 4.4 */}
+      <section className="py-16 bg-[#050814]">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <Network className="size-6 text-rose-300" />
+              <h2 className="text-3xl md:text-4xl gradient-text">
+                Cell-type correlation networks
+              </h2>
+            </div>
+            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+              Compute gene-gene correlations, build networks, and detect modules within each cell type.
+            </p>
+            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+              <p className="text-slate-300">
+                Compare AD vs Control network topology. Output figures/rq3_network_[celltype].png and a
+                module enrichment table.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Task 4.5 */}
+      <section className="py-16 bg-[#050814]">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <MapPin className="size-6 text-amber-300" />
+              <h2 className="text-3xl md:text-4xl gradient-text">
+                Cell-type proportions and spatial distribution 
+              </h2>
+            </div>
+            <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
+              Quantify whether cell type proportions shift near plaques and across distance bins.
+            </p>
+            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+              <p className="text-slate-300">
+                Output a bar plot of cell-type composition vs plaque distance and summary density metrics.
+              </p>
             </div>
           </motion.div>
         </div>

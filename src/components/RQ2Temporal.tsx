@@ -1,5 +1,6 @@
+
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Clock, TrendingUp, AlertTriangle } from "lucide-react";
 import {
@@ -1105,3 +1106,4 @@ export function RQ2Temporal() {
     </div>
   );
 }
+
