@@ -24,21 +24,21 @@ export function About() {
       role: 'Temporal analysis',
       github: 'https://github.com/nourbj-web',
       linkedin: 'https://linkedin.com',
-      email: 'member3@epfl.ch',
+      email: 'nour.benjaafar@epfl.ch',
     },
     {
       name: 'Antonio Del Priore Antunes',
       role: 'Data cleaning & preprocessing',
       github: 'https://github.com/blichub',
       linkedin: 'https://linkedin.com',
-      email: 'member4@epfl.ch',
+      email: 'antonio.delprioreantunes@epfl.ch',
     },
     {
       name: 'Ali Shenaskhosh',
       role: 'Data cleaning & preprocessing',
       github: 'https://github.com/Ali-sh80',
       linkedin: 'https://linkedin.com',
-      email: 'member4@epfl.ch',
+      email: 'ali.shenaskhosh@epfl.ch',
     },
   ];
 
