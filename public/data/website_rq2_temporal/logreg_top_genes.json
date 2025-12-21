@@ -1,22 +1,30 @@
 [
   {
     "name":"Fos",
-    "coef":-0.9063932492
+    "coef":-0.788884743
+  },
+  {
+    "name":"Deptor",
+    "coef":-0.4261661548
+  },
+  {
+    "name":"Mertk",
+    "coef":0.2363399662
   },
   {
     "name":"Stat3",
-    "coef":0.2872298366
+    "coef":0.0609071517
   },
   {
-    "name":"Lcn2",
-    "coef":-0.1352471106
+    "name":"Acsbg1",
+    "coef":0.0
   },
   {
-    "name":"Tgfbr1",
-    "coef":-0.1232007432
+    "name":"Aldh1l1",
+    "coef":0.0
   },
   {
-    "name":"C1qa",
+    "name":"Aspg",
     "coef":0.0
   },
   {
@@ -28,23 +36,11 @@
     "coef":0.0
   },
   {
-    "name":"Cd68",
-    "coef":0.0
-  },
-  {
     "name":"C1qb",
     "coef":0.0
   },
   {
-    "name":"Aspg",
-    "coef":0.0
-  },
-  {
-    "name":"Aldh1l1",
-    "coef":0.0
-  },
-  {
-    "name":"Igfbp5",
+    "name":"C1qa",
     "coef":0.0
   },
   {
@@ -52,7 +48,23 @@
     "coef":0.0
   },
   {
+    "name":"Gja1",
+    "coef":0.0
+  },
+  {
     "name":"Ctsh",
+    "coef":0.0
+  },
+  {
+    "name":"Cd68",
+    "coef":0.0
+  },
+  {
+    "name":"Igfbp5",
+    "coef":0.0
+  },
+  {
+    "name":"Itgam",
     "coef":0.0
   },
   {
@@ -60,11 +72,7 @@
     "coef":0.0
   },
   {
-    "name":"Laptm5",
-    "coef":0.0
-  },
-  {
-    "name":"Lyz2",
+    "name":"Kdr",
     "coef":0.0
   },
   {
@@ -72,11 +80,27 @@
     "coef":0.0
   },
   {
-    "name":"Kdr",
+    "name":"Laptm5",
     "coef":0.0
   },
   {
-    "name":"Ntsr2",
+    "name":"Gucy1a1",
+    "coef":0.0
+  },
+  {
+    "name":"Hexa",
+    "coef":0.0
+  },
+  {
+    "name":"Lyz2",
+    "coef":0.0
+  },
+  {
+    "name":"Lcn2",
+    "coef":0.0
+  },
+  {
+    "name":"Nts",
     "coef":0.0
   },
   {
@@ -84,7 +108,7 @@
     "coef":0.0
   },
   {
-    "name":"Slco2b1",
+    "name":"Orai2",
     "coef":0.0
   },
   {
@@ -92,19 +116,7 @@
     "coef":0.0
   },
   {
-    "name":"Syt2",
-    "coef":0.0
-  },
-  {
-    "name":"Tnf",
-    "coef":0.0
-  },
-  {
-    "name":"Trem2",
-    "coef":0.0
-  },
-  {
-    "name":"Tyrobp",
+    "name":"Slc17a7",
     "coef":0.0
   }
 ]

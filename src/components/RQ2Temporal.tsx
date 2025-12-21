@@ -82,8 +82,8 @@ function Notes({
         <div className="text-slate-300 leading-relaxed">
           {observation ?? (
             <span className="text-slate-500">
-              (Write 1–2 concrete things you see: peaks, separations, flips, etc.)
-            </span>
+              
+          </span>
           )}
         </div>
       </div>
@@ -93,7 +93,7 @@ function Notes({
         <div className="text-slate-300 leading-relaxed">
           {interpretation ?? (
             <span className="text-slate-500">
-              (Explain what it implies biologically: early driver vs late consequence, remodeling, compensation…)
+              
             </span>
           )}
         </div>
@@ -101,6 +101,9 @@ function Notes({
     </div>
   );
 }
+
+
+
 
 function Card({
   title,
@@ -499,7 +502,8 @@ function PCATooltip({ active, payload }: any) {
    Main component
 --------------------------- */
 export function RQ2Temporal() {
-  const base = "public/data/website_rq2_temporal";
+ const base = `${import.meta.env.BASE_URL}data/website_rq2_temporal`;
+
 
   // Helpers MUST live here (not between JSX)
   const dashForCluster = (clusterId: number) => (clusterId % 2 === 0 ? "0" : "6 6");
@@ -663,7 +667,7 @@ export function RQ2Temporal() {
             </div>
 
             <p className="text-xl text-slate-300 max-w-3xl">
-              Interactive figures (no PNGs): pathways → genes → PCA → module trajectories → predictive shortlist.
+              A time-lapse of energy pathways: from normal aging to AD divergence.                
             </p>
           </motion.div>
         </div>
@@ -700,16 +704,15 @@ export function RQ2Temporal() {
 
       {/* Key finding with scroll chips */}
       <section className="py-14 bg-[#050814]">
-        <div className="container mx-auto px-6">
+        
+           <div className="container mx-auto px-6">
           <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-2xl p-8 max-w-6xl mx-auto">
             <div className="flex items-start gap-4">
               <TrendingUp className="size-12 text-purple-300 flex-shrink-0" />
               <div className="space-y-3">
                 <h3 className="text-2xl text-purple-200">Key finding</h3>
                 <p className="text-slate-300">
-                  Time is the dominant organizer, but AD doesn’t act like a constant offset. It reshapes trajectories:
-                  pathway activity and gene modules follow different temporal patterns — and a small predictive shortlist
-                  captures that divergence.
+                  Time is the dominant organizer of energy-related expression programs, but AD is not a simple constant shift. Instead, it reshapes the temporal trajectory: AD samples move strongly along a progression axis (PC1) driven by immune/lysosomal/redox programs, while the “normal aging” axis seen in WT (PC2) becomes disrupted. Across heatmaps, clustering, and sparse predictive models, the consistent pattern is trajectory remodeling rather than a stable genotype fingerprint (and all classification results should be read as exploratory given the very small sample size).
                 </p>
 
                 <div className="flex flex-wrap gap-2">
@@ -721,15 +724,17 @@ export function RQ2Temporal() {
               </div>
             </div>
           </div>
+        
         </div>
       </section>
 
       {/* Heatmaps */}
       <section id="sec-heatmaps" className="py-16 bg-[#050814] scroll-mt-28">
-        <div className="container mx-auto px-6">
+       
+           <div className="container mx-auto px-6">
           <SectionTitle
             title="Heatmaps"
-            subtitle="WT, AD, and Δ (AD − WT) are shown side-by-side for direct comparison. Controls and legend appear once per panel."
+            subtitle="WT, AD, and Δ (AD − WT) are shown for direct comparison. Controls and legend appear once per panel."
           />
 
           <div className="space-y-8">
@@ -771,15 +776,12 @@ export function RQ2Temporal() {
                 <Notes
                   observation={
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Which pathways rise/fall most strongly with time?</li>
-                      <li>Do WT and AD keep the same ordering of pathway strengths across timepoints?</li>
-                      <li>Where does Δ concentrate (early vs late timepoints)?</li>
+                      Across pathways, signal changes are time-structured: many modules rise or fall consistently across the WT timepoints, while AD shows different timing and relative ordering of pathway activity. In the Δ (AD − WT) view, differences appear as localized “hotspots” rather than a uniform offset, suggesting that divergence is concentrated in specific time windows.
                     </ul>
                   }
                   interpretation={
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Time-localized Δ hotspots suggest specific divergence windows (not a constant offset).</li>
-                      <li>Flips or re-ordering across time supports temporal remodeling rather than a static shift.</li>
+                      This supports the idea that AD primarily acts by remodeling when energy programs activate (and how strongly), not by shifting everything up/down equally. Time-localized Δ patterns are what we expect from stage-dependent pathology (early compensation, later breakdown), rather than a static disease signature.
                     </ul>
                   }
                 />
@@ -827,21 +829,19 @@ export function RQ2Temporal() {
                 <Notes
                   observation={
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Identify genes with time-specific bursts (early vs late).</li>
-                      <li>Look for Δ sign flips (direction changes across time).</li>
-                      <li>Do the strongest Δ genes cluster into the same functions?</li>
+                      At the gene level, temporal patterns look burst-like and heterogeneous: some genes peak early, others late, and Δ often highlights directional changes that depend on timepoint. With this sample size, only a small number of individual genes look consistently strong under strict correction, but Δ still highlights a coherent energy/immune–lysosomal signal emerging over time.
                     </ul>
                   }
                   interpretation={
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Early Δ shifts can suggest upstream dysregulation or compensation.</li>
-                      <li>Late Δ shifts often reflect downstream consequences of progressive dysfunction.</li>
+                      Single genes are noisy at n=6, so the stable story lives more at the program/module level than at the “one key biomarker gene” level. The gene heatmaps are best read as a candidate generator: they propose which genes participate in the broader temporal reprogramming, not definitive biomarkers.
                     </ul>
                   }
                 />
               </Card>
             )}
           </div>
+        
         </div>
       </section>
 
@@ -869,8 +869,8 @@ export function RQ2Temporal() {
             </div>
 
             <Notes
-              observation="WT and AD occupy different regions; time also structures the spread."
-              interpretation="AD perturbs the temporal trajectory rather than producing a constant offset in transcriptomic space."
+              observation="PCA reveals a clear temporal trajectory: PC1 increases almost monotonically with time in AD (very strong correlation reported in the notebook), while WT follows this axis more moderately. In contrast, WT shows a clean time trend on PC2, whereas AD does not track PC2 strongly, indicating a different temporal geometry."
+              interpretation="PC1 behaves like an AD progression / energy-pathology axis dominated by immune/lysosomal/redox programs (e.g., the Immune–Metabolic Crosstalk / Redox–Lysosomal signal noted in the notebook). PC2 looks more like a normal aging/maturation axis that WT follows reliably, and AD partially breaks away from. So PCA suggests: WT = aging trajectory, AD = aging + amplified pathology trajectory."
             />
           </Card>
         </div>
@@ -918,6 +918,7 @@ export function RQ2Temporal() {
                       stroke="#fb7185"
                       strokeWidth={2.5}
                       dot={{ r: 3 }}
+                      connectNulls
                       activeDot={{ r: 5 }}
                       strokeDasharray={dashForCluster(0)}
                     />
@@ -938,6 +939,7 @@ export function RQ2Temporal() {
                       stroke="#fb7185"
                       strokeWidth={2.5}
                       dot={{ r: 3 }}
+                      connectNulls
                       activeDot={{ r: 5 }}
                       strokeDasharray={dashForCluster(1)}
                     />
@@ -979,6 +981,7 @@ export function RQ2Temporal() {
                       stroke="#fb7185"
                       strokeWidth={2.5}
                       dot={{ r: 3 }}
+                      connectNulls
                       activeDot={{ r: 5 }}
                       strokeDasharray={dashForCluster(0)}
                     />
@@ -999,6 +1002,7 @@ export function RQ2Temporal() {
                       stroke="#fb7185"
                       strokeWidth={2.5}
                       dot={{ r: 3 }}
+                      connectNulls
                       activeDot={{ r: 5 }}
                       strokeDasharray={dashForCluster(1)}
                     />
@@ -1010,8 +1014,8 @@ export function RQ2Temporal() {
 
           <div className="bg-slate-800/20 border border-slate-700/40 rounded-2xl p-6">
             <Notes
-              observation="Within each cluster, WT and AD trajectories diverge across timepoints, and the magnitude of divergence differs by cluster."
-              interpretation="Genotype-dependent temporal remodeling: AD affects module dynamics in a cluster-specific way rather than applying one global shift to all programs."
+              observation="Cluster 0 shows a WT aging-related rise that becomes disrupted in AD (depressed in early/mid AD with partial recovery later). Cluster 1 shows a WT decrease with age that is comparatively flattened in AD (small cluster, weaker signal). Cluster 2 is characterized by a late AD increase (low early, rising strongly in late AD). Cluster 3 shows a delayed activation: low in young WT, higher in older WT, and then sustained in AD."
+              interpretation=" Cluster 0 fits a “normal metabolic maturation → AD disruption” pattern: a program that should ramp with age in WT but gets perturbed during disease progression. Cluster 1 likely captures a narrow or noisy program, so it should be treated cautiously, useful as a hypothesis, not a headline. These look like stage-dependent activation programs: Cluster 2 is consistent with late compensatory/stress responses (often immune/oxidative/lysosomal-adjacent), while Cluster 3 resembles a slower “aging-onset” program that becomes maintained or amplified in disease. Together they reinforce the central theme: AD modifies the timing and persistence of metabolic programs."
             />
           </div>
         </div>
@@ -1048,7 +1052,7 @@ export function RQ2Temporal() {
               </div>
 
               <Notes
-                observation="Only a few genes keep non-zero weights after L1 shrinkage."
+                observation="Sparse logistic regression selects a tiny shortlist (most coefficients shrink to ~0). Genotype prediction accuracy is low (near chance) in the notebook, meaning the selected genes can change between runs/splits. Still, the same type of signal appears: a few genes lean AD-associated while others lean WT-associated."
                 interpretation={
                   <div className="space-y-3">
                     <p>
@@ -1058,7 +1062,7 @@ export function RQ2Temporal() {
                     </p>
                     <p>
                       Practically, these few surviving genes are the highest-leverage candidates for follow-up (they’re
-                      not “the whole story”, but they are the most predictive in this modeling setup).
+                      not “the whole story”, but they are the most predictive in this modeling setup). With n=6, these gene coefficients are not robust biomarkers, they’re a “where to look next” list. The model essentially tells us that genotype is harder to classify than time, and any apparent gene-level signature should be validated on larger cohorts.
                     </p>
                   </div>
                 }
@@ -1087,8 +1091,8 @@ export function RQ2Temporal() {
               </div>
 
               <Notes
-                observation="A small set of functions capture most of the predictive signal (others are ~0)."
-                interpretation="Function-level summaries are often more stable and biologically interpretable than single genes."
+                observation="At the function level, genotype accuracy remains weak, but the model highlights a small number of non-zero pathways (others are ~0), indicating that a few programs concentrate most of the separable signal."
+                interpretation="Function-level summaries are often more interpretable and less noisy than single genes, even if classification is still unstable here. The shortlisted functions point toward mechanisms like proteostasis/autophagy, astrocyte metabolic support, and redox/lysosomal biology as likely contributors to AD-related trajectory changes, best framed as mechanistic hypotheses rather than confirmed diagnostic markers."
               />
             </Card>
           </div>
@@ -1101,15 +1105,13 @@ export function RQ2Temporal() {
           <div className="max-w-6xl mx-auto bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8">
             <h3 className="text-2xl text-slate-100 mb-3">Conclusion</h3>
             <p className="text-slate-300 leading-relaxed">
-              We made temporal structure visible at multiple resolutions: pathway programs, gene-level patterns, global
-              trajectory (PCA), module dynamics (clusters), and an interpretable predictive shortlist. Together, they
-              support the idea that AD changes not just “how much” energy programs are expressed, but “when” and “in what
-              pattern”.
+               Overall, the temporal analysis suggests that energy-related expression programs are organized primarily by stage/time, while AD acts by reshaping trajectories rather than producing a stable constant offset. PCA separates a strong AD progression axis (PC1) from a WT-like aging/maturation axis (PC2), and clustering recovers multiple temporal patterns including late AD activation and WT-to-AD disruption profiles. Predictive models reinforce the same message: time bins are easier to predict than genotype, and any “top genes/functions” should be treated as exploratory shortlists until validated on larger sample sizes.
             </p>
           </div>
         </div>
       </section>
     </div>
+    
   );
 }
 
