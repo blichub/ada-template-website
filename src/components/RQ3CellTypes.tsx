@@ -1,18 +1,68 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, Layers, ClipboardList, Share2, Network, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell, PieChart, Pie, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell, PieChart, Pie, LineChart, Line, AreaChart, Area } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { DEHeatmap } from "../components/DEHeatmap";
-import { useState, useEffect } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import Papa from 'papaparse';
+import Plot from "react-plotly.js";
 
+type DistanceRow = {
+  plaque_distance: number;
+  genotype: 'AD' | 'Control' | string;
+};
+
+type DistanceBin = {
+  binStart: number;
+  binEnd: number;
+  binCenter: number;
+  AD: number;
+  Control: number;
+};
+
+type Umap2DRow = {
+  UMAP1: number;
+  UMAP2: number;
+  cell_type: string;
+  distance_bin: string;
+};
+
+type Umap3DRow = {
+  UMAP1: number;
+  UMAP2: number;
+  UMAP3: number;
+  plaque_distance: number;
+};
 
 export function RQ3CellTypes() {
+  const baseUrl = import.meta.env.BASE_URL ?? '/';
   const [metabolicData, setMetabolicData] = useState<any>(null);
   const [plaqueDistanceData, setPlaqueDistanceData] = useState<any[]>([]);
+  const [distanceHistData, setDistanceHistData] = useState<DistanceBin[]>([]);
+  const [umap2dData, setUmap2dData] = useState<Umap2DRow[]>([]);
+  const [umap3dData, setUmap3dData] = useState<Umap3DRow[]>([]);
   const [selectedGene, setSelectedGene] = useState<string>('');
   const [availableGenes, setAvailableGenes] = useState<string[]>([]);
+  const distanceAxis = useMemo<{ ticks: number[]; domain: [number, number] } | null>(() => {
+    if (distanceHistData.length === 0) return null;
+    let min = Number.POSITIVE_INFINITY;
+    let max = Number.NEGATIVE_INFINITY;
+    distanceHistData.forEach((bin) => {
+      if (Number.isFinite(bin.binStart) && bin.binStart < min) min = bin.binStart;
+      if (Number.isFinite(bin.binEnd) && bin.binEnd > max) max = bin.binEnd;
+    });
+    if (!Number.isFinite(min) || !Number.isFinite(max)) return null;
+    const step = 500;
+    const start = Math.floor(min / step) * step;
+    const end = 2200;
+    const safeEnd = start >= end ? start + step : end;
+    const ticks = [];
+    for (let value = start; value <= safeEnd; value += step) {
+      ticks.push(value);
+    }
+    return { ticks, domain: [start, safeEnd] };
+  }, [distanceHistData]);
   // Cell-type specific data computed from rq3_celltype_DE.csv
   // Count of significantly DE metabolic genes (q-value < 0.05) per cell type
   const cellTypeMetabolic = [
@@ -58,7 +108,7 @@ export function RQ3CellTypes() {
 
   // Load metabolic categories data
   useEffect(() => {
-    fetch('/ada-template-website/data/website_rq3_celltypes/rq3_metabolic_categories.json')
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_metabolic_categories.json`)
       .then(res => res.json())
       .then(data => setMetabolicData(data))
       .catch(err => console.error('Error loading metabolic categories data:', err));
@@ -66,7 +116,7 @@ export function RQ3CellTypes() {
 
   // Load plaque distance interaction data
   useEffect(() => {
-    fetch('/ada-template-website/data/website_rq3_celltypes/rq3_plaque_distance_interaction.csv')
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_plaque_distance_interaction.csv`)
       .then(res => res.text())
       .then(csvText => {
         Papa.parse(csvText, {
@@ -82,6 +132,227 @@ export function RQ3CellTypes() {
       })
       .catch(err => console.error('Error loading plaque distance data:', err));
   }, []);
+
+  // Load plaque-distance histogram data by genotype
+  useEffect(() => {
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_distance_hist_by_genotype.csv`)
+      .then(res => res.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            const rows = (results.data as DistanceRow[] || []).filter(
+              (row) => Number.isFinite(row.plaque_distance) && (row.genotype === 'AD' || row.genotype === 'Control')
+            );
+            if (rows.length === 0) {
+              setDistanceHistData([]);
+              return;
+            }
+
+            let min = Number.POSITIVE_INFINITY;
+            let max = Number.NEGATIVE_INFINITY;
+            rows.forEach((row) => {
+              const value = row.plaque_distance;
+              if (!Number.isFinite(value)) return;
+              if (value < min) min = value;
+              if (value > max) max = value;
+            });
+            if (!Number.isFinite(min) || !Number.isFinite(max)) {
+              setDistanceHistData([]);
+              return;
+            }
+            const binCount = 40;
+            const binWidth = max > min ? (max - min) / binCount : 1;
+
+            const bins: DistanceBin[] = Array.from({ length: binCount }, (_, index) => ({
+              binStart: min + index * binWidth,
+              binEnd: min + (index + 1) * binWidth,
+              binCenter: min + (index + 0.5) * binWidth,
+              AD: 0,
+              Control: 0,
+            }));
+
+            const totalByGenotype: Record<'AD' | 'Control', number> = { AD: 0, Control: 0 };
+            rows.forEach((row) => {
+              const value = row.plaque_distance;
+              const genotype = row.genotype === 'AD' ? 'AD' : row.genotype === 'Control' ? 'Control' : null;
+              if (!Number.isFinite(value) || genotype === null) return;
+              const index = Math.min(Math.floor((value - min) / binWidth), binCount - 1);
+              if (index >= 0 && index < bins.length) {
+                bins[index][genotype] += 1;
+                totalByGenotype[genotype] += 1;
+              }
+            });
+
+            const densityBins = bins.map((bin) => ({
+              ...bin,
+              AD: totalByGenotype.AD > 0 ? bin.AD / (totalByGenotype.AD * binWidth) : 0,
+              Control: totalByGenotype.Control > 0 ? bin.Control / (totalByGenotype.Control * binWidth) : 0,
+            }));
+
+            setDistanceHistData(densityBins);
+          }
+        });
+      })
+      .catch(err => console.error('Error loading distance histogram data:', err));
+  }, []);
+
+  // Load UMAP data for 2D and 3D plots
+  useEffect(() => {
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_umap2d.csv`)
+      .then(res => res.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            const rows = (results.data as Umap2DRow[] || []).filter((row) =>
+              Number.isFinite(row.UMAP1) &&
+              Number.isFinite(row.UMAP2) &&
+              typeof row.cell_type === 'string' &&
+              typeof row.distance_bin === 'string'
+            );
+            setUmap2dData(rows);
+          }
+        });
+      })
+      .catch(err => console.error('Error loading UMAP 2D data:', err));
+
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_umap3d_distance.csv`)
+      .then(res => res.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            const rows = (results.data as Umap3DRow[] || []).filter((row) =>
+              Number.isFinite(row.UMAP1) &&
+              Number.isFinite(row.UMAP2) &&
+              Number.isFinite(row.UMAP3) &&
+              Number.isFinite(row.plaque_distance)
+            );
+            setUmap3dData(rows);
+          }
+        });
+      })
+      .catch(err => console.error('Error loading UMAP 3D data:', err));
+  }, [baseUrl]);
+
+  const colorPalette = [
+    '#ef4444',
+    '#3b82f6',
+    '#10b981',
+    '#f59e0b',
+    '#8b5cf6',
+    '#ec4899',
+    '#22d3ee',
+    '#eab308',
+  ];
+
+  const umap2dByDistanceTraces = useMemo(() => {
+    const groups = new Map<string, { x: number[]; y: number[] }>();
+    umap2dData.forEach((row) => {
+      const key = row.distance_bin || 'Unknown';
+      if (!groups.has(key)) {
+        groups.set(key, { x: [], y: [] });
+      }
+      groups.get(key)!.x.push(row.UMAP1);
+      groups.get(key)!.y.push(row.UMAP2);
+    });
+    return Array.from(groups.entries()).map(([label, coords], index) => ({
+      type: 'scattergl',
+      mode: 'markers',
+      name: label,
+      x: coords.x,
+      y: coords.y,
+      marker: {
+        size: 4,
+        opacity: 0.7,
+        color: colorPalette[index % colorPalette.length],
+      },
+    }));
+  }, [umap2dData]);
+
+  const umap2dByCellTypeTraces = useMemo(() => {
+    const groups = new Map<string, { x: number[]; y: number[] }>();
+    umap2dData.forEach((row) => {
+      const key = row.cell_type || 'Unknown';
+      if (!groups.has(key)) {
+        groups.set(key, { x: [], y: [] });
+      }
+      groups.get(key)!.x.push(row.UMAP1);
+      groups.get(key)!.y.push(row.UMAP2);
+    });
+    return Array.from(groups.entries()).map(([label, coords], index) => ({
+      type: 'scattergl',
+      mode: 'markers',
+      name: label,
+      x: coords.x,
+      y: coords.y,
+      marker: {
+        size: 4,
+        opacity: 0.7,
+        color: colorPalette[index % colorPalette.length],
+      },
+    }));
+  }, [umap2dData]);
+
+  const umap3dTrace = useMemo(() => {
+    if (umap3dData.length === 0) return [];
+    return [
+      {
+        type: 'scatter3d',
+        mode: 'markers',
+        x: umap3dData.map((row) => row.UMAP1),
+        y: umap3dData.map((row) => row.UMAP2),
+        z: umap3dData.map((row) => row.UMAP3),
+        marker: {
+          size: 2.5,
+          opacity: 0.7,
+          color: umap3dData.map((row) => row.plaque_distance),
+          colorscale: 'Viridis',
+          showscale: true,
+          colorbar: {
+            title: 'Plaque distance',
+            tickcolor: '#94a3b8',
+            tickfont: { color: '#94a3b8' },
+            titlefont: { color: '#94a3b8' },
+          },
+        },
+      },
+    ];
+  }, [umap3dData]);
+
+  const umap2dLayout = {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { color: '#cbd5f5' },
+    xaxis: {
+      title: 'UMAP1',
+      gridcolor: '#334155',
+      zeroline: false,
+    },
+    yaxis: {
+      title: 'UMAP2',
+      gridcolor: '#334155',
+      zeroline: false,
+    },
+    margin: { l: 40, r: 10, t: 30, b: 40 },
+    legend: { orientation: 'h', y: 1.12 },
+  };
+
+  const umap3dLayout = {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    font: { color: '#cbd5f5' },
+    scene: {
+      xaxis: { title: 'UMAP1', gridcolor: '#334155', zeroline: false },
+      yaxis: { title: 'UMAP2', gridcolor: '#334155', zeroline: false },
+      zaxis: { title: 'UMAP3', gridcolor: '#334155', zeroline: false },
+      bgcolor: 'rgba(0,0,0,0)',
+    },
+    margin: { l: 0, r: 0, t: 30, b: 0 },
+  };
 
   return (
     <div className="pt-20 min-h-screen">
@@ -281,7 +552,7 @@ export function RQ3CellTypes() {
             </p>
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 mb-24 space-y-6">
               <DEHeatmap
-                csvUrl="/data/website_rq3_celltypes/rq3_celltype_DE.csv"
+                csvUrl={`${baseUrl}data/website_rq3_celltypes/rq3_celltype_DE.csv`}
                 maxGenes={20}
               />
               <p className="text-slate-500 text-sm mt-3">
@@ -398,13 +669,114 @@ export function RQ3CellTypes() {
               </h2>
             </div>
             <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              Compute gene-gene correlations, build networks, and detect modules within each cell type.
+              Compute gene-gene correlations, build networks where genes are represented as nodes, and detect modules within each cell type.
             </p>
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
               <p className="text-slate-300">
                 Compare AD vs Control network topology. Output figures/rq3_network_[celltype].png and a
                 module enrichment table.
               </p>
+              <p className="text-slate-400 mt-4">
+                We reloaded the annotated dataset and energy-gene panel, built correlation networks per
+                cell type and genotype, then summarized network metrics, modules, and exported network plots.
+              </p>
+              <div className="mt-6">
+                <h3 className="text-lg text-slate-200 mb-3">Plaque-distance distribution by genotype</h3>
+                {distanceHistData.length > 0 ? (
+                  <div className="bg-slate-900/30 rounded-xl p-3">
+                    <ResponsiveContainer width="100%" height={460}>
+                      <AreaChart data={distanceHistData} margin={{ top: 16, right: 12, left: 28, bottom: 32 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                        <XAxis
+                          dataKey="binCenter"
+                          type="number"
+                          scale="linear"
+                          allowDataOverflow
+                          stroke="#94a3b8"
+                          tick={{ fill: '#94a3b8' }}
+                          tickMargin={8}
+                          ticks={distanceAxis ? distanceAxis.ticks : undefined}
+                          domain={distanceAxis ? distanceAxis.domain : undefined}
+                          tickFormatter={(value) => Math.round(Number(value)).toString()}
+                          label={{ value: 'Distance to nearest plaque (um)', position: 'bottom', offset: 15, fill: '#94a3b8' }}
+                        />
+                        <YAxis
+                          stroke="#94a3b8"
+                          tick={{ fill: '#94a3b8' }}
+                          tickMargin={8}
+                          label={{ value: 'Density', angle: -90, position: 'outsideLeft', offset: 20, dx: -50, fill: '#94a3b8' }}
+                        />
+                        <Tooltip
+                          contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                          labelFormatter={(value) => `Distance: ${Number(value).toFixed(1)} um`}
+                        />
+                        <Legend verticalAlign="top" align="center" wrapperStyle={{ paddingBottom: 8 }} />
+                        <Area
+                          type="step"
+                          dataKey="AD"
+                          name="AD"
+                          stroke="#ef4444"
+                          strokeWidth={2}
+                          fill="#ef4444"
+                          fillOpacity={0.2}
+                          dot={false}
+                        />
+                        <Area
+                          type="step"
+                          dataKey="Control"
+                          name="Control"
+                          stroke="#3b82f6"
+                          strokeWidth={2}
+                          fill="#3b82f6"
+                          fillOpacity={0.2}
+                          dot={false}
+                        />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+                ) : (
+                  <p className="text-slate-500">Distance histogram data not available.</p>
+                )}
+              </div>
+            </div>
+            <div className="mt-8 bg-slate-800/40 border border-slate-700/40 rounded-xl p-4 max-w-4xl mx-auto">
+              <h4 className="text-slate-200 font-semibold mb-2">What this shows</h4>
+              <p className="text-slate-400">
+                The AD and Control distributions largely overlap, but AD shows a slightly heavier tail at
+                longer plaque distances. That suggests a modest shift in spatial positioning, while the
+                shared peak indicates similar bulk distance structure across genotypes.
+              </p>
+            </div>
+
+            <div className="mt-8 grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+                <h4 className="text-slate-200 font-semibold mb-3">UMAP 2D colored by distance bin</h4>
+                <Plot
+                  data={umap2dByDistanceTraces}
+                  layout={umap2dLayout}
+                  config={{ responsive: true, displayModeBar: false }}
+                  style={{ width: "100%", height: "360px" }}
+                />
+              </div>
+              <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+                <h4 className="text-slate-200 font-semibold mb-3">UMAP 2D colored by cell type</h4>
+                <Plot
+                  data={umap2dByCellTypeTraces}
+                  layout={umap2dLayout}
+                  config={{ responsive: true, displayModeBar: false }}
+                  style={{ width: "100%", height: "360px" }}
+                />
+              </div>
+            </div>
+
+            <div className="mt-8 bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 max-w-6xl mx-auto">
+              <h4 className="text-slate-200 font-semibold mb-3">UMAP 3D colored by plaque distance</h4>
+              <Plot
+                data={umap3dTrace}
+                layout={umap3dLayout}
+                config={{ responsive: true, displayModeBar: true }}
+                style={{ width: "100%", height: "640px" }}
+              />
             </div>
           </motion.div>
         </div>
@@ -430,6 +802,10 @@ export function RQ3CellTypes() {
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
               <p className="text-slate-300">
                 Output a bar plot of cell-type composition vs plaque distance and summary density metrics.
+              </p>
+              <p className="text-slate-400 mt-4">
+                We binned cells by plaque distance, quantified cell-type proportions overall and by genotype,
+                and ran chi-square tests to assess distance-associated shifts.
               </p>
             </div>
           </motion.div>
