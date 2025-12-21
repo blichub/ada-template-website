@@ -6,6 +6,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { DEHeatmap } from "../components/DEHeatmap";
 import { useMemo, useState, useEffect } from 'react';
 import Papa from 'papaparse';
+import Plot from "react-plotly.js";
 
 type DistanceRow = {
   plaque_distance: number;
@@ -20,11 +21,27 @@ type DistanceBin = {
   Control: number;
 };
 
+type Umap2DRow = {
+  UMAP1: number;
+  UMAP2: number;
+  cell_type: string;
+  distance_bin: string;
+};
+
+type Umap3DRow = {
+  UMAP1: number;
+  UMAP2: number;
+  UMAP3: number;
+  plaque_distance: number;
+};
+
 export function RQ3CellTypes() {
   const baseUrl = import.meta.env.BASE_URL ?? '/';
   const [metabolicData, setMetabolicData] = useState<any>(null);
   const [plaqueDistanceData, setPlaqueDistanceData] = useState<any[]>([]);
   const [distanceHistData, setDistanceHistData] = useState<DistanceBin[]>([]);
+  const [umap2dData, setUmap2dData] = useState<Umap2DRow[]>([]);
+  const [umap3dData, setUmap3dData] = useState<Umap3DRow[]>([]);
   const [selectedGene, setSelectedGene] = useState<string>('');
   const [availableGenes, setAvailableGenes] = useState<string[]>([]);
   const distanceAxis = useMemo<{ ticks: number[]; domain: [number, number] } | null>(() => {
@@ -180,6 +197,162 @@ export function RQ3CellTypes() {
       })
       .catch(err => console.error('Error loading distance histogram data:', err));
   }, []);
+
+  // Load UMAP data for 2D and 3D plots
+  useEffect(() => {
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_umap2d.csv`)
+      .then(res => res.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            const rows = (results.data as Umap2DRow[] || []).filter((row) =>
+              Number.isFinite(row.UMAP1) &&
+              Number.isFinite(row.UMAP2) &&
+              typeof row.cell_type === 'string' &&
+              typeof row.distance_bin === 'string'
+            );
+            setUmap2dData(rows);
+          }
+        });
+      })
+      .catch(err => console.error('Error loading UMAP 2D data:', err));
+
+    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_umap3d_distance.csv`)
+      .then(res => res.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            const rows = (results.data as Umap3DRow[] || []).filter((row) =>
+              Number.isFinite(row.UMAP1) &&
+              Number.isFinite(row.UMAP2) &&
+              Number.isFinite(row.UMAP3) &&
+              Number.isFinite(row.plaque_distance)
+            );
+            setUmap3dData(rows);
+          }
+        });
+      })
+      .catch(err => console.error('Error loading UMAP 3D data:', err));
+  }, [baseUrl]);
+
+  const colorPalette = [
+    '#ef4444',
+    '#3b82f6',
+    '#10b981',
+    '#f59e0b',
+    '#8b5cf6',
+    '#ec4899',
+    '#22d3ee',
+    '#eab308',
+  ];
+
+  const umap2dByDistanceTraces = useMemo(() => {
+    const groups = new Map<string, { x: number[]; y: number[] }>();
+    umap2dData.forEach((row) => {
+      const key = row.distance_bin || 'Unknown';
+      if (!groups.has(key)) {
+        groups.set(key, { x: [], y: [] });
+      }
+      groups.get(key)!.x.push(row.UMAP1);
+      groups.get(key)!.y.push(row.UMAP2);
+    });
+    return Array.from(groups.entries()).map(([label, coords], index) => ({
+      type: 'scattergl',
+      mode: 'markers',
+      name: label,
+      x: coords.x,
+      y: coords.y,
+      marker: {
+        size: 4,
+        opacity: 0.7,
+        color: colorPalette[index % colorPalette.length],
+      },
+    }));
+  }, [umap2dData]);
+
+  const umap2dByCellTypeTraces = useMemo(() => {
+    const groups = new Map<string, { x: number[]; y: number[] }>();
+    umap2dData.forEach((row) => {
+      const key = row.cell_type || 'Unknown';
+      if (!groups.has(key)) {
+        groups.set(key, { x: [], y: [] });
+      }
+      groups.get(key)!.x.push(row.UMAP1);
+      groups.get(key)!.y.push(row.UMAP2);
+    });
+    return Array.from(groups.entries()).map(([label, coords], index) => ({
+      type: 'scattergl',
+      mode: 'markers',
+      name: label,
+      x: coords.x,
+      y: coords.y,
+      marker: {
+        size: 4,
+        opacity: 0.7,
+        color: colorPalette[index % colorPalette.length],
+      },
+    }));
+  }, [umap2dData]);
+
+  const umap3dTrace = useMemo(() => {
+    if (umap3dData.length === 0) return [];
+    return [
+      {
+        type: 'scatter3d',
+        mode: 'markers',
+        x: umap3dData.map((row) => row.UMAP1),
+        y: umap3dData.map((row) => row.UMAP2),
+        z: umap3dData.map((row) => row.UMAP3),
+        marker: {
+          size: 2.5,
+          opacity: 0.7,
+          color: umap3dData.map((row) => row.plaque_distance),
+          colorscale: 'Viridis',
+          showscale: true,
+          colorbar: {
+            title: 'Plaque distance',
+            tickcolor: '#94a3b8',
+            tickfont: { color: '#94a3b8' },
+            titlefont: { color: '#94a3b8' },
+          },
+        },
+      },
+    ];
+  }, [umap3dData]);
+
+  const umap2dLayout = {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    plot_bgcolor: 'rgba(0,0,0,0)',
+    font: { color: '#cbd5f5' },
+    xaxis: {
+      title: 'UMAP1',
+      gridcolor: '#334155',
+      zeroline: false,
+    },
+    yaxis: {
+      title: 'UMAP2',
+      gridcolor: '#334155',
+      zeroline: false,
+    },
+    margin: { l: 40, r: 10, t: 30, b: 40 },
+    legend: { orientation: 'h', y: 1.12 },
+  };
+
+  const umap3dLayout = {
+    paper_bgcolor: 'rgba(0,0,0,0)',
+    font: { color: '#cbd5f5' },
+    scene: {
+      xaxis: { title: 'UMAP1', gridcolor: '#334155', zeroline: false },
+      yaxis: { title: 'UMAP2', gridcolor: '#334155', zeroline: false },
+      zaxis: { title: 'UMAP3', gridcolor: '#334155', zeroline: false },
+      bgcolor: 'rgba(0,0,0,0)',
+    },
+    margin: { l: 0, r: 0, t: 30, b: 0 },
+  };
 
   return (
     <div className="pt-20 min-h-screen">
@@ -574,6 +747,37 @@ export function RQ3CellTypes() {
                 longer plaque distances. That suggests a modest shift in spatial positioning, while the
                 shared peak indicates similar bulk distance structure across genotypes.
               </p>
+            </div>
+
+            <div className="mt-8 grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+              <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+                <h4 className="text-slate-200 font-semibold mb-3">UMAP 2D colored by distance bin</h4>
+                <Plot
+                  data={umap2dByDistanceTraces}
+                  layout={umap2dLayout}
+                  config={{ responsive: true, displayModeBar: false }}
+                  style={{ width: "100%", height: "360px" }}
+                />
+              </div>
+              <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-4">
+                <h4 className="text-slate-200 font-semibold mb-3">UMAP 2D colored by cell type</h4>
+                <Plot
+                  data={umap2dByCellTypeTraces}
+                  layout={umap2dLayout}
+                  config={{ responsive: true, displayModeBar: false }}
+                  style={{ width: "100%", height: "360px" }}
+                />
+              </div>
+            </div>
+
+            <div className="mt-8 bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 max-w-6xl mx-auto">
+              <h4 className="text-slate-200 font-semibold mb-3">UMAP 3D colored by plaque distance</h4>
+              <Plot
+                data={umap3dTrace}
+                layout={umap3dLayout}
+                config={{ responsive: true, displayModeBar: true }}
+                style={{ width: "100%", height: "640px" }}
+              />
             </div>
           </motion.div>
         </div>
