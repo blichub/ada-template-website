@@ -811,6 +811,14 @@ export function RQ3CellTypes() {
                 and ran chi-square tests to assess distance-associated shifts.
               </p>
             </div>
+            <div className="mt-8 bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
+              <h3 className="text-lg text-slate-200 mb-3">Plan for this part</h3>
+              <p className="text-slate-300">
+                We will compute cell-type counts per distance bin, normalize to proportions, and compare
+                AD vs Control compositions. We will visualize the stacked distributions and summarize
+                enrichment with chi-square statistics.
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -1040,34 +1048,47 @@ export function RQ3CellTypes() {
 
             <div className="space-y-6">
               <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
-                <h3 className="text-xl text-red-400 mb-3">Neuronal Selectivity</h3>
+                <h3 className="text-xl text-red-400 mb-3">Diversity across Ages and neuron types</h3>
                 <p className="text-slate-300">
-                  Neurons are disproportionately affected by metabolic dysfunction, with nearly 50% decline in 
-                  metabolic gene expression. This aligns with their high energy demands and reliance on mitochondrial function.
+                  Cell-type fractions can shift with age and condition, and the overall composition differs across
+                  cell types. We assessed with the fraction plots that abundance is not static and can change as 
+                  mice age. Moreover, the proportions of cell types may differ, as in the older mice, the microglia 
+                  were less abundant compared to other neuron types in younger mice.
                 </p>
               </div>
 
               <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
                 <h3 className="text-xl text-yellow-400 mb-3">Subtype Specificity</h3>
                 <p className="text-slate-300">
-                  Within neurons, cholinergic and excitatory subtypes are most vulnerable. These populations are 
-                  critical for cognitive function, explaining the cognitive symptoms of Alzheimer's disease.
+                  Differential expression across metabolic categories shows that neuronal subtypes are not
+                  regulated equally. Neurons, microglia and oligodendrocytes exhibit stronger downregulation 
+                  relative to other cell types, highlighting selective vulnerability. Astrocytes however have 
+                  the same order of magnitude of upregulated and downregulated genes. More specifically, we 
+                  assessed which genes are more upregulated or downregulated in each neuronal subtype, finding
+                  that some subtypes, such as cholinergic and excitatory neurons, are more vulnerable to metabolic 
+                  dysfunction compared to inhibitory and dopaminergic neurons. 
                 </p>
               </div>
 
               <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
-                <h3 className="text-xl text-green-400 mb-3">Cell-Type Targeted Therapies</h3>
+                <h3 className="text-xl text-green-400 mb-3">Cell-Type Downstream functionality loss</h3>
                 <p className="text-slate-300">
-                  Understanding cell-type-specific vulnerabilities suggests that targeted metabolic support for 
-                  neurons, particularly cholinergic and excitatory subtypes, could be therapeutically beneficial.
+                  We assessed what metabolic pathways are more affected in each cell type. Neurons and oligodendrocytes
+                  show widespread downregulation across nearly all categories, indicating global metabolic impairment.
+                  Astrocytes display a mixed profile with some upregulation, suggesting adaptive responses, while 
+                  microglia exhibit moderate downregulation with some flexibility. These patterns highlight cell-type-specific 
+                  metabolic vulnerabilities and potential compensatory mechanisms in Alzheimer's disease.
                 </p>
               </div>
 
               <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6">
-                <h3 className="text-xl text-purple-400 mb-3">Non-Neuronal Resilience</h3>
+                <h3 className="text-xl text-purple-400 mb-3">Neuron type also determines spatial features</h3>
                 <p className="text-slate-300">
-                  Microglia and endothelial cells show relative metabolic resilience, likely due to their ability 
-                  to shift to glycolytic metabolism. This adaptive capacity could be exploited therapeutically.
+                  Spatial analyses show that cell-type composition varies with plaque distance. The plaque-distance
+                  distributions and UMAP embeddings indicate spatial gradients that differ between genotypes.
+                  We were able to identify clusters and groups that suggest rewiring of metabolic programs within cell
+                  types. These network-level differences reinforce that AD effects are cell-type specific, not
+                  uniform across the tissue.
                 </p>
               </div>
             </div>
