@@ -693,19 +693,19 @@ export function DatasetMethods() {
                             <div className="grid-cols-1 grid-cols-1 md:grid-cols-2 gap-16">
 
                                 <iframe
-                                    src="/ada-template-website/plots/corr_control.html"
+                                    src="/public/plots/corr_control.html"
                                     className="w-full rounded-xl border border-white/10"
                                     style={{ minWidth: "800px" }} // optional: prevents too small width
                                 />
                                 <br></br>
                                 <iframe
-                                    src="/ada-template-website/plots/corr_alzheimer.html"
+                                    src="/public/plots/corr_alzheimer.html"
                                     className="w-full rounded-xl border border-white/10"
                                     style={{ minWidth: "800px" }} // optional: prevents too small width
                                 />
                                 <br></br>
                                 <iframe
-                                    src="/ada-template-website/plots/corr_difference.html"
+                                    src="/public/plots/corr_difference.html"
                                     className="w-full rounded-xl border border-white/10"
                                     style={{ minWidth: "800px" }} // optional: prevents too small width
                                 />
