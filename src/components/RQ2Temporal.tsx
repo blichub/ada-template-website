@@ -82,8 +82,8 @@ function Notes({
         <div className="text-slate-300 leading-relaxed">
           {observation ?? (
             <span className="text-slate-500">
-              (Write 1–2 concrete things you see: peaks, separations, flips, etc.)
-            </span>
+              
+          </span>
           )}
         </div>
       </div>
@@ -93,7 +93,7 @@ function Notes({
         <div className="text-slate-300 leading-relaxed">
           {interpretation ?? (
             <span className="text-slate-500">
-              (Explain what it implies biologically: early driver vs late consequence, remodeling, compensation…)
+              
             </span>
           )}
         </div>
@@ -101,6 +101,9 @@ function Notes({
     </div>
   );
 }
+
+
+
 
 function Card({
   title,
@@ -701,7 +704,8 @@ export function RQ2Temporal() {
 
       {/* Key finding with scroll chips */}
       <section className="py-14 bg-[#050814]">
-        <div className="container mx-auto px-6">
+        
+           <div className="container mx-auto px-6">
           <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-2xl p-8 max-w-6xl mx-auto">
             <div className="flex items-start gap-4">
               <TrendingUp className="size-12 text-purple-300 flex-shrink-0" />
@@ -720,12 +724,14 @@ export function RQ2Temporal() {
               </div>
             </div>
           </div>
+        
         </div>
       </section>
 
       {/* Heatmaps */}
       <section id="sec-heatmaps" className="py-16 bg-[#050814] scroll-mt-28">
-        <div className="container mx-auto px-6">
+       
+           <div className="container mx-auto px-6">
           <SectionTitle
             title="Heatmaps"
             subtitle="WT, AD, and Δ (AD − WT) are shown for direct comparison. Controls and legend appear once per panel."
@@ -835,6 +841,7 @@ export function RQ2Temporal() {
               </Card>
             )}
           </div>
+        
         </div>
       </section>
 
@@ -1104,6 +1111,7 @@ export function RQ2Temporal() {
         </div>
       </section>
     </div>
+    
   );
 }
 
