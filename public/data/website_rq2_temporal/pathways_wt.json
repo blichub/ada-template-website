@@ -1,0 +1,60 @@
+{
+  "xLabels": [
+    "2.5",
+    "5.7"
+  ],
+  "yLabels": [
+    "AminoAcid_Creatine_OneCarbon",
+    "Astrocyte_Metabolic_Support",
+    "Autophagy_Proteostasis",
+    "Glucose_Nutrient_Transport",
+    "GrowthFactor_Metabolic_Signaling",
+    "Immune_Metabolic_Crosstalk",
+    "Lipid_Metabolism_Transport",
+    "Redox_Lysosomal_Metabolism",
+    "Synaptic_Energy_Demand",
+    "Vascular_Nutrient_Coupling"
+  ],
+  "values": [
+    [
+      25.069899250745422,
+      27.731977821399717
+    ],
+    [
+      62.77701859703332,
+      69.25312276832081
+    ],
+    [
+      63.18582325381918,
+      72.58379039529822
+    ],
+    [
+      17.104920941599325,
+      23.487580903132873
+    ],
+    [
+      57.66955621946387,
+      70.34799793229843
+    ],
+    [
+      18.58731398650525,
+      20.897659564568276
+    ],
+    [
+      8.787647267344079,
+      12.264710971315875
+    ],
+    [
+      15.540717426208344,
+      17.335443625585718
+    ],
+    [
+      119.44649094404376,
+      143.42018917371544
+    ],
+    [
+      20.771911682794318,
+      22.86262281122532
+    ]
+  ]
+}

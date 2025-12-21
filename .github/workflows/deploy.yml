@@ -33,7 +33,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build               # <-- change to your <BUILD_DIR> if not dist
+          path: ./dist               # <-- change to your <BUILD_DIR> if not dist
 
   deploy:
     needs: build-and-deploy

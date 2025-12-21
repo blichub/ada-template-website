@@ -1,0 +1,11 @@
+name,coef
+Lipid_Metabolism_Transport,-0.5800990960037047
+Autophagy_Proteostasis,0.47165799164065125
+Astrocyte_Metabolic_Support,0.3205978011027628
+AminoAcid_Creatine_OneCarbon,0.0
+GrowthFactor_Metabolic_Signaling,0.0
+Glucose_Nutrient_Transport,0.0
+Immune_Metabolic_Crosstalk,0.0
+Redox_Lysosomal_Metabolism,0.0
+Synaptic_Energy_Demand,0.0
+Vascular_Nutrient_Coupling,0.0
