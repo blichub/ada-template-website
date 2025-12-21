@@ -737,7 +737,7 @@ export function RQ2Temporal() {
         The goal of this temporal analysis is to determine whether Alzheimer’s disease (AD)
         primarily induces a <span className="font-semibold text-slate-200">constant shift</span> in
         energy-related expression programs, or instead
-        <span className="font-semibold text-slate-200">reshapes their temporal trajectories</span>
+        <span className="font-semibold text-slate-200"> reshapes their temporal trajectories </span>
         across disease progression.
       </p>
 
@@ -747,10 +747,10 @@ export function RQ2Temporal() {
       </p>
 
       <ul className="list-disc pl-6 space-y-1">
-        <li>heatmaps to visualize temporal structure and genotype differences,</li>
+        <li>Heatmaps to visualize temporal structure and genotype differences,</li>
         <li>PCA to assess dominant axes of temporal versus disease-related variation,</li>
-        <li>clustering to identify recurrent temporal programs,</li>
-        <li>sparse predictive models to probe which features carry the strongest genotype signal.</li>
+        <li>Clustering to identify recurrent temporal programs,</li>
+        <li>Sparse predictive models to probe which features carry the strongest genotype signal.</li>
       </ul>
 
       <p>
@@ -1013,6 +1013,13 @@ export function RQ2Temporal() {
               </div>
             </Card>
 
+            <div className="bg-slate-800/20 border border-slate-700/40 rounded-2xl p-6">
+            <Notes
+              observation="Cluster 0 shows a WT aging-related rise that becomes disrupted in AD (depressed in early/mid AD with partial recovery later). Cluster 1 shows a WT decrease with age that is comparatively flattened in AD (small cluster, weaker signal)."
+              interpretation=" Cluster 0 fits a “normal metabolic maturation → AD disruption” pattern: a program that should ramp with age in WT but gets perturbed during disease progression. Cluster 1 likely captures a narrow or noisy program, so it should be treated cautiously, useful as a hypothesis, not a headline."
+            />
+          </div>
+
             <Card title="Clusters 2–3" subtitle="Color = genotype • Line style = cluster">
               <div className="w-full" style={{ height: 420, minHeight: 320 }}>
                 <ResponsiveContainer width="100%" height="100%">
@@ -1079,8 +1086,8 @@ export function RQ2Temporal() {
 
           <div className="bg-slate-800/20 border border-slate-700/40 rounded-2xl p-6">
             <Notes
-              observation="Cluster 0 shows a WT aging-related rise that becomes disrupted in AD (depressed in early/mid AD with partial recovery later). Cluster 1 shows a WT decrease with age that is comparatively flattened in AD (small cluster, weaker signal). Cluster 2 is characterized by a late AD increase (low early, rising strongly in late AD). Cluster 3 shows a delayed activation: low in young WT, higher in older WT, and then sustained in AD."
-              interpretation=" Cluster 0 fits a “normal metabolic maturation → AD disruption” pattern: a program that should ramp with age in WT but gets perturbed during disease progression. Cluster 1 likely captures a narrow or noisy program, so it should be treated cautiously, useful as a hypothesis, not a headline. These look like stage-dependent activation programs: Cluster 2 is consistent with late compensatory/stress responses (often immune/oxidative/lysosomal-adjacent), while Cluster 3 resembles a slower “aging-onset” program that becomes maintained or amplified in disease. Together they reinforce the central theme: AD modifies the timing and persistence of metabolic programs."
+              observation="Cluster 2 is characterized by a late AD increase (low early, rising strongly in late AD). Cluster 3 shows a delayed activation: low in young WT, higher in older WT, and then sustained in AD."
+              interpretation="These look like stage-dependent activation programs: Cluster 2 is consistent with late compensatory/stress responses (often immune/oxidative/lysosomal-adjacent), while Cluster 3 resembles a slower “aging-onset” program that becomes maintained or amplified in disease. Together they reinforce the central theme: AD modifies the timing and persistence of metabolic programs."
             />
           </div>
         </div>
