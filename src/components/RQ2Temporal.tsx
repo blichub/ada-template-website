@@ -662,7 +662,6 @@ export function RQ2Temporal() {
               </div>
               <div>
                 <h1 className="text-5xl md:text-6xl gradient-text">Temporal Analysis</h1>
-                <p className="text-slate-400 mt-2">RQ2 — energy programs over time</p>
               </div>
             </div>
 
