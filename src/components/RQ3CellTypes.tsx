@@ -410,7 +410,10 @@ export function RQ3CellTypes() {
               <div>
                 <h3 className="text-2xl mb-3 text-purple-300">Key Finding</h3>
                 <p className="text-slate-300">
-                  Neurons 
+                  Neurons show the most severe metabolic vulnerability, with 49% decline in metabolic gene expression 
+                  compared to controls. Within neuronal subtypes, cholinergic and excitatory neurons are most affected. 
+                  Microglia and endothelial cells show relative metabolic resilience, possibly reflecting their 
+                  non-neuronal energy demands. 
                 </p>
               </div>
             </div>
