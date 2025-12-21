@@ -737,7 +737,7 @@ export function RQ2Temporal() {
         The goal of this temporal analysis is to determine whether Alzheimer’s disease (AD)
         primarily induces a <span className="font-semibold text-slate-200">constant shift</span> in
         energy-related expression programs, or instead
-        <span className="font-semibold text-slate-200">reshapes their temporal trajectories</span>
+        <span className="font-semibold text-slate-200"> reshapes their temporal trajectories </span>
         across disease progression.
       </p>
 
@@ -747,10 +747,10 @@ export function RQ2Temporal() {
       </p>
 
       <ul className="list-disc pl-6 space-y-1">
-        <li>heatmaps to visualize temporal structure and genotype differences,</li>
+        <li>Heatmaps to visualize temporal structure and genotype differences,</li>
         <li>PCA to assess dominant axes of temporal versus disease-related variation,</li>
-        <li>clustering to identify recurrent temporal programs,</li>
-        <li>sparse predictive models to probe which features carry the strongest genotype signal.</li>
+        <li>Clustering to identify recurrent temporal programs,</li>
+        <li>Sparse predictive models to probe which features carry the strongest genotype signal.</li>
       </ul>
 
       <p>
