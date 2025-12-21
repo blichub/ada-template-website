@@ -555,7 +555,7 @@ export function RQ3CellTypes() {
             </p>
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 mb-24 space-y-6">
               <DEHeatmap
-                csvUrl={`${baseUrl}data/website_rq3_celltypes/rq3_celltype_DE.csv`}
+                csvUrl="/data/website_rq3_celltypes/rq3_celltype_DE.csv"
                 maxGenes={20}
               />
               <p className="text-slate-500 text-sm mt-3">
