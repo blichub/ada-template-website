@@ -1,17 +1,25 @@
 import { motion } from 'motion/react';
 import { ArrowLeft, Layers, ClipboardList, Share2, Network, MapPin, TrendingDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell, PieChart, Pie } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Cell, PieChart, Pie, LineChart, Line } from 'recharts';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { DEHeatmap } from "../components/DEHeatmap";
+import { useState, useEffect } from 'react';
+import Papa from 'papaparse';
+
 
 export function RQ3CellTypes() {
-  // Mock cell-type specific data
+  const [metabolicData, setMetabolicData] = useState<any>(null);
+  const [plaqueDistanceData, setPlaqueDistanceData] = useState<any[]>([]);
+  const [selectedGene, setSelectedGene] = useState<string>('');
+  const [availableGenes, setAvailableGenes] = useState<string[]>([]);
+  // Cell-type specific data computed from rq3_celltype_DE.csv
+  // Count of significantly DE metabolic genes (q-value < 0.05) per cell type
   const cellTypeMetabolic = [
-    { cellType: 'Neurons', control: 95, AD: 48, decline: 49 },
-    { cellType: 'Astrocytes', control: 88, AD: 62, decline: 30 },
-    { cellType: 'Microglia', control: 82, AD: 71, decline: 13 },
-    { cellType: 'Oligodendrocytes', control: 91, AD: 55, decline: 40 },
-    { cellType: 'Endothelial', control: 85, AD: 73, decline: 14 },
+    { cellType: 'Astrocyte', upregulated: 30, downregulated: 45 },
+    { cellType: 'Microglia', upregulated: 6, downregulated: 75 },
+    { cellType: 'Neuron', upregulated: 5, downregulated: 78 },
+    { cellType: 'Oligodendrocyte', upregulated: 2, downregulated: 85 },
   ];
 
   const neuronSubtypes = [
@@ -47,6 +55,33 @@ export function RQ3CellTypes() {
 ];
 
   const COLORS = ['#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#6b7280'];
+
+  // Load metabolic categories data
+  useEffect(() => {
+    fetch('/ada-template-website/data/website_rq3_celltypes/rq3_metabolic_categories.json')
+      .then(res => res.json())
+      .then(data => setMetabolicData(data))
+      .catch(err => console.error('Error loading metabolic categories data:', err));
+  }, []);
+
+  // Load plaque distance interaction data
+  useEffect(() => {
+    fetch('/ada-template-website/data/website_rq3_celltypes/rq3_plaque_distance_interaction.csv')
+      .then(res => res.text())
+      .then(csvText => {
+        Papa.parse(csvText, {
+          header: true,
+          dynamicTyping: true,
+          complete: (results) => {
+            setPlaqueDistanceData(results.data);
+            const genes = [...new Set(results.data.map((row: any) => row.gene))].filter(Boolean);
+            setAvailableGenes(genes as string[]);
+            if (genes.length > 0) setSelectedGene(genes[0] as string);
+          }
+        });
+      })
+      .catch(err => console.error('Error loading plaque distance data:', err));
+  }, []);
 
   return (
     <div className="pt-20 min-h-screen">
@@ -105,10 +140,7 @@ export function RQ3CellTypes() {
               <div>
                 <h3 className="text-2xl mb-3 text-purple-300">Key Finding</h3>
                 <p className="text-slate-300">
-                  Neurons show the most severe metabolic vulnerability, with 49% decline in metabolic gene expression 
-                  compared to controls. Within neuronal subtypes, cholinergic and excitatory neurons are most affected. 
-                  Microglia and endothelial cells show relative metabolic resilience, possibly reflecting their 
-                  non-neuronal energy demands.
+                  Neurons 
                 </p>
               </div>
             </div>
@@ -161,6 +193,19 @@ export function RQ3CellTypes() {
                 </BarChart>
               </ResponsiveContainer>
             </div>
+            <p className="text-slate-400 text-center mt-6 mb-8">
+              
+            </p>
+
+            <div className="rounded-xl p-6 md:p-8 max-w-4xl mx-auto" style={{ backgroundColor: '#0d152b', border: '1px solid rgba(59,130,246,0.35)', boxShadow: '0 12px 32px rgba(15,23,42,0.35)' }}>
+              
+              <div className="space-y-4 text-slate-300" style={{ textAlign: 'justify' }}>
+                <p>
+                  Cell-type composition varies only modestly across age and genotype. 
+                  The relative proportions of major brain cell types remain broadly comparable between control (WT) and Alzheimer's disease (TG) mice across ages. This indicates that the metabolic differences observed later are unlikely to be driven by major shifts in cell-type abundance, but rather reflect genuine cell-type-specific transcriptional changes.
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -176,53 +221,44 @@ export function RQ3CellTypes() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
-              Metabolic Activity by Cell Type
+              Metabolic Dysfunction Severity by Cell Type
             </h2>
             <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              Comparing metabolic gene expression between control and Alzheimer's disease models
+              Counts of significantly up- vs downregulated metabolic genes per cell type (q-value &lt; 0.05).
             </p>
 
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
               <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={cellTypeMetabolic}>
+                <BarChart data={cellTypeMetabolic} margin={{ top: 20, right: 30, left: 30, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
                   <XAxis dataKey="cellType" stroke="#94a3b8" />
                   <YAxis 
                     stroke="#94a3b8"
-                    label={{ value: 'Metabolic Score', angle: -90, position: 'insideLeft', fill: '#94a3b8' }}
+                    width={80}
+                    label={{ value: 'Number of Significant Metabolic Genes', angle: -90, position: 'left', fill: '#94a3b8', offset: -10, dy: -140 }}
                   />
                   <Tooltip 
                     contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                     labelStyle={{ color: '#e2e8f0' }}
                   />
                   <Legend />
-                  <Bar dataKey="control" fill="#10b981" name="Control" />
-                  <Bar dataKey="AD" fill="#ef4444" name="Alzheimer's Disease" />
+                  <Bar dataKey="upregulated" fill="#10b981" name="Upregulated" />
+                  <Bar dataKey="downregulated" fill="#ef4444" name="Downregulated" />
                 </BarChart>
               </ResponsiveContainer>
             </div>
 
-            <div className="mt-8 grid md:grid-cols-5 gap-4">
-              {cellTypeMetabolic.map((cell, index) => {
-                const colors = ['#ef4444', '#f59e0b', '#10b981', '#8b5cf6', '#6b7280'];
-                return (
-                  <div 
-                    key={cell.cellType}
-                    className="bg-slate-800/30 border border-slate-700/50 rounded-lg p-4 text-center"
-                  >
-                    <div 
-                      className="w-12 h-12 rounded-full mx-auto mb-3 flex items-center justify-center"
-                      style={{ backgroundColor: `${colors[index]}20`, border: `2px solid ${colors[index]}` }}
-                    >
-                      <span className="text-2xl" style={{ color: colors[index] }}>
-                        {cell.decline}%
-                      </span>
-                    </div>
-                    <h4 className="text-slate-300">{cell.cellType}</h4>
-                    <p className="text-slate-500">Decline</p>
-                  </div>
-                );
-              })}
+            <div className="rounded-xl p-6 md:p-8 max-w-4xl mx-auto mt-8" style={{ backgroundColor: '#0d152b', border: '1px solid rgba(59,130,246,0.35)', boxShadow: '0 12px 32px rgba(15,23,42,0.35)' }}>
+              
+              <p className="text-slate-300" style={{ textAlign: 'justify' }}>
+                Across all cell types, downregulated metabolic genes markedly outnumber upregulated ones, with the strongest deficits observed in neurons and oligodendrocytes. Astrocytes display a mixed pattern of downregulation and modest upregulation, suggesting limited compensatory responses. Overall, these patterns indicate broad, cell-type-specific metabolic impairment rather than changes driven by shifts in cell-type abundance.
+              </p>
+              <ul className="list-disc list-inside text-slate-300 space-y-2 mt-4">
+                <li><strong>Neurons</strong>: Largest metabolic gene loss, consistent with their high energetic demand.</li>
+                <li><strong>Oligodendrocytes</strong>: Substantial downregulation, reflecting the high metabolic requirements associated with myelin maintenance.</li>
+                <li><strong>Astrocytes</strong>: Mixed profile, with partial upregulation alongside loss, suggesting potential compensatory metabolic responses.</li>
+                <li><strong>Microglia</strong>: Smaller net loss compared to other cell types, indicating relative metabolic resilience.</li>
+              </ul>
             </div>
           </motion.div>
         </div>
@@ -242,19 +278,31 @@ export function RQ3CellTypes() {
               </h2>
             </div>
             <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              Subset each cell type, compare AD vs Control per category, and apply multiple testing correction.
+            Heatmap showing differential expression of metabolic genes across cell types in Alzheimer’s disease compared to controls
             </p>
-            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
-              <p className="text-slate-300">
-                Output results to results/rq3_celltype_DE.csv with columns: cell_type, category, mean_AD,
-                mean_Control, log2FC, pval, qval.
+            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 mb-24 space-y-6">
+              <DEHeatmap
+                csvUrl="/data/website_rq3_celltypes/rq3_celltype_DE.csv"
+                maxGenes={20}
+              />
+              <p className="text-slate-500 text-sm mt-3">
+                The genes shown in the heatmap are metabolic genes that show the strongest and most statistically significant differential expression between Alzheimer's disease and control, across all cell types.
               </p>
             </div>
+
+            <div className="rounded-xl p-6 md:p-8 max-w-4xl mx-auto mt-8" style={{ backgroundColor: '#0d152b', border: '1px solid rgba(59,130,246,0.35)', boxShadow: '0 12px 32px rgba(15,23,42,0.35)' }}>
+             
+              <p className="text-slate-300" style={{ textAlign: 'justify' }}>
+                This heatmap highlights distinct, cell-type-specific patterns of metabolic gene deregulation in Alzheimer’s disease. Across many genes, neurons and oligodendrocytes show predominantly negative fold-changes, indicating widespread downregulation of metabolic gene expression. In contrast, astrocytes display a mixed profile, with several genes showing modest upregulation alongside downregulation, while microglia exhibit comparatively smaller and less consistent changes. 
+                The consistent directionality of expression changes within each cell type, rather than across genes, suggests that metabolic dysregulation in Alzheimer’s disease is cell-intrinsic and cell-type-dependent, rather than driven by a uniform global response. Overall, the heatmap supports the conclusion that neurons and oligodendrocytes are the most metabolically affected cell types, whereas astrocytes and microglia show more heterogeneous or attenuated responses.
+              </p>
+            </div>
+
           </motion.div>
         </div>
       </section>
 
-      {/* Task 4.3 */}
+      {/* Metabolic Categories by Cell Type */}
       <section className="py-16 bg-[#050814]">
         <div className="container mx-auto px-6">
           <motion.div
@@ -262,20 +310,75 @@ export function RQ3CellTypes() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <Share2 className="size-6 text-indigo-300" />
-              <h2 className="text-3xl md:text-4xl gradient-text">
-                Cell-type x plaque distance interaction 
-              </h2>
-            </div>
+            <h2 className="text-3xl md:text-4xl mb-4 text-center gradient-text">
+              Metabolic Pathway Deregulation Patterns
+            </h2>
             <p className="text-slate-400 text-center mb-8 max-w-2xl mx-auto">
-              Test whether spatial gradients differ between neurons and glia using a three-way comparison.
+              Cell types show distinct patterns of metabolic gene loss across key functional categories
             </p>
-            <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 max-w-4xl mx-auto">
-              <p className="text-slate-300">
-                Deliverables include an interaction plot (expression vs distance, faceted by cell type) and
-                an ANOVA results table.
-              </p>
+
+            {metabolicData && (
+              <div className="grid md:grid-cols-2 gap-8">
+                {['Astrocyte', 'Microglia', 'Neuron', 'Oligodendrocyte'].map((cellType) => (
+                  <div key={cellType} className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8">
+                    <h3 className="text-2xl font-semibold text-center text-slate-100 mb-6">{cellType}</h3>
+                    <ResponsiveContainer width="100%" height={450}>
+                      <BarChart
+                        data={metabolicData[cellType]}
+                        layout="vertical"
+                        margin={{ top: 5, right: 30, left: 50, bottom: 5 }}
+                      >
+                        <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                        <XAxis type="number" stroke="#94a3b8" />
+                        <YAxis 
+                          type="category" 
+                          dataKey="category" 
+                          stroke="#94a3b8"
+                          width={45}
+                          tick={{ fontSize: 12 }}
+                        />
+                        <Tooltip 
+                          contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
+                          labelStyle={{ color: '#e2e8f0' }}
+                        />
+                        <Legend />
+                        <Bar dataKey="upregulated" fill="#10b981" name="Upregulated" />
+                        <Bar dataKey="downregulated" fill="#ef4444" name="Downregulated" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <div className="space-y-8 max-w-4xl mx-auto mt-8">
+              <div className="bg-green-900/20 border border-green-500/30 rounded-xl p-6 md:p-8 mb-6">
+                <h4 className="text-lg font-semibold text-green-400 mb-3">Astrocytes</h4>
+                <p className="text-slate-300" style={{ textAlign: 'justify' }}>
+                  Astrocytes display a <strong>mixed metabolic response</strong>, with both upregulated and downregulated genes across categories. While lipid metabolism and amino acid–related pathways show substantial downregulation, <strong>immune–metabolic crosstalk and redox/lysosomal metabolism include notable upregulation</strong>, suggesting partial and selective metabolic compensation. This pattern is consistent with astrocytes adopting adaptive metabolic states rather than undergoing uniform metabolic decline.
+                </p>
+              </div>
+
+              <div className="bg-purple-900/20 border border-purple-500/30 rounded-xl p-6 md:p-8 mb-6">
+                <h4 className="text-lg font-semibold text-purple-400 mb-3">Microglia</h4>
+                <p className="text-slate-300" style={{ textAlign: 'justify' }}>
+                  Microglia show <strong>moderate downregulation across multiple metabolic categories</strong>, particularly lipid metabolism, immune–metabolic crosstalk, growth-factor signaling, and lysosomal metabolism. However, <strong>upregulated genes are present in synaptic energy demand and selected pathways</strong>, indicating a more flexible or heterogeneous metabolic response. Overall, microglia exhibit <strong>attenuated metabolic suppression</strong> compared to neurons and oligodendrocytes.
+                </p>
+              </div>
+
+              <div className="bg-red-900/20 border border-red-500/30 rounded-xl p-6 md:p-8 mb-6">
+                <h4 className="text-lg font-semibold text-red-400 mb-3">Neurons</h4>
+                <p className="text-slate-300" style={{ textAlign: 'justify' }}>
+                  Neurons exhibit the <strong>most pronounced and widespread metabolic downregulation</strong>, spanning nearly all categories, including lipid metabolism, amino acid and one-carbon metabolism, redox/lysosomal pathways, and oxidative stress. Upregulated genes are rare. This consistent pattern indicates a <strong>global loss of metabolic gene expression</strong> in neurons, aligning with their high energetic demand and vulnerability in Alzheimer's disease.
+                </p>
+              </div>
+
+              <div className="bg-yellow-900/20 border border-yellow-600/30 rounded-xl p-6 md:p-8">
+                <h4 className="text-lg font-semibold text-yellow-500 mb-3">Oligodendrocytes</h4>
+                <p className="text-slate-300" style={{ textAlign: 'justify' }}>
+                  Oligodendrocytes show <strong>strong downregulation across lipid metabolism, amino acid metabolism, immune–metabolic crosstalk, and growth-factor signaling</strong>, with only minimal upregulation. Given the metabolic demands associated with myelin maintenance, this pattern suggests <strong>substantial metabolic vulnerability</strong> in oligodendrocytes, comparable in magnitude to that observed in neurons.
+                </p>
+              </div>
             </div>
           </motion.div>
         </div>
