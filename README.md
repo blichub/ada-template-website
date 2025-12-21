@@ -7,3 +7,5 @@
 
   Run `npm run dev` to start the development server.
   
+
+  The website is also live at https://blichub.github.io/ada-template-website/
