@@ -619,30 +619,59 @@ export function DatasetMethods() {
                             viewport={{ once: true }}
                             className="mb-z text-slate-400 text-sm md:text-base"
                         >
-                            <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl">
-                                <p>
-                                    •	Mitochondrial function – central pathways for cellular energy production, including oxidative phosphorylation<br />
-                                    •	Oxidative Stress / Antioxidant Defense – pathways managing reactive oxygen species and cellular redox balance<br />
-                                    •	Lipid Metabolism and Transport – regulation of lipid synthesis, breakdown, and intercellular transport<br />
-                                    •	Amino-Acid and One-Carbon Metabolism – critical for biosynthesis, methylation reactions, and energy support<br />
-                                    •	Astrocyte Metabolic Support – genes involved in energy support provided by glial cells<br />
-                                    •	Vascular–Nutrient Coupling – genes linking blood flow to metabolic supply<br />
-                                    •	Growth-Factor and Metabolic Signaling – pathways coordinating energy demand with cellular growth and signaling<br />
-                                    •	Redox and Lysosomal Metabolism – regulation of reactive species and degradation pathways<br />
-                                    •	Ion Signaling and Energy Coupling – pathways linking ion transport to energy consumption<br />
-                                    •	Immune–Metabolic Crosstalk – interactions between immune responses and metabolic activity<br />
-                                    •	Autophagy and Proteostasis – maintenance of protein homeostasis and energy recycling<br />
-                                    •	Glucose and Nutrient Transport – transporters and pathways mediating nutrient uptake<br />
-                                    •	Synaptic Energy Demand – genes supporting the high energy requirements of neuronal communication<br />
-                                    <br></br>
-                                    This systematic classification resulted in 74 unique genes, representing roughly 21%
-                                    of the analyzed gene panel. By organizing genes into these biologically meaningful categories,
-                                    this framework enables the investigation of both primary energy dysfunction and secondary
-                                    regulatory responses across disease stages and spatial contexts within the mouse brain.
-                                    This approach facilitates a comprehensive understanding of metabolic alterations,
-                                    highlighting how neurons and glial cells adapt to disease-related stressors.
-                                </p>
-                            </p>
+                            <div className="text-slate-400 mt-4 text-sm leading-relaxed max-w-4xl mx-auto">
+  <ul className="list-disc list-inside space-y-2 text-justify">
+    <li>
+      <span className="font-semibold text-slate-300">Mitochondrial function</span> – central pathways for cellular energy production, including oxidative phosphorylation
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Oxidative Stress / Antioxidant Defense</span> – pathways managing reactive oxygen species and cellular redox balance
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Lipid Metabolism and Transport</span> – regulation of lipid synthesis, breakdown, and intercellular transport
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Amino-Acid and One-Carbon Metabolism</span> – critical for biosynthesis, methylation reactions, and energy support
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Astrocyte Metabolic Support</span> – genes involved in energy support provided by glial cells
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Vascular–Nutrient Coupling</span> – genes linking blood flow to metabolic supply
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Growth-Factor and Metabolic Signaling</span> – pathways coordinating energy demand with cellular growth and signaling
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Redox and Lysosomal Metabolism</span> – regulation of reactive species and degradation pathways
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Ion Signaling and Energy Coupling</span> – pathways linking ion transport to energy consumption
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Immune–Metabolic Crosstalk</span> – interactions between immune responses and metabolic activity
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Autophagy and Proteostasis</span> – maintenance of protein homeostasis and energy recycling
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Glucose and Nutrient Transport</span> – transporters and pathways mediating nutrient uptake
+    </li>
+    <li>
+      <span className="font-semibold text-slate-300">Synaptic Energy Demand</span> – genes supporting the high energy requirements of neuronal communication
+    </li>
+  </ul>
+
+  <p className="mt-6 text-justify">
+    This systematic classification resulted in 74 unique genes, representing roughly 21%
+    of the analyzed gene panel. By organizing genes into these biologically meaningful categories,
+    this framework enables the investigation of both primary energy dysfunction and secondary
+    regulatory responses across disease stages and spatial contexts within the mouse brain.
+    This approach facilitates a comprehensive understanding of metabolic alterations,
+    highlighting how neurons and glial cells adapt to disease-related stressors.
+  </p>
+</div>
+
                             <br></br>
                         </motion.div>
                     </motion.div>
