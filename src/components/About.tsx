@@ -15,10 +15,9 @@ export function About() {
     },
     {
       name: 'Clara Gentile',
-      role: 'Cell-type specificity',
+      role: 'Gene selection, Cell-type specificity',
       github: 'https://github.com/claragentile11',
-      linkedin: 'https://linkedin.com',
-      email: 'member2@epfl.ch',
+      email: 'clara.gentile@epfl.ch',
     },
     {
       name: 'Nour Ben Jaafar',
@@ -294,7 +293,7 @@ export function About() {
       <footer className="py-8 bg-[#050814] border-t border-slate-800">
         <div className="container mx-auto px-6 text-center">
           <p className="text-slate-400">
-            © 2024 EPFL Applied Data Analysis Project. All rights reserved.
+            © 2025 EPFL Applied Data Analysis Project. All rights reserved.
           </p>
         </div>
       </footer>
