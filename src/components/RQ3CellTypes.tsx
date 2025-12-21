@@ -114,7 +114,6 @@ export function RQ3CellTypes() {
               </div>
               <div>
                 <h1 className="text-5xl md:text-6xl gradient-text">Cell-Type Vulnerability</h1>
-                <p className="text-slate-400 mt-2">Research Question 3</p>
               </div>
             </div>
             <p className="text-xl text-slate-300 max-w-3xl">
