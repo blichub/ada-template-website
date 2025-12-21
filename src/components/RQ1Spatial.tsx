@@ -102,7 +102,7 @@ export function RQ1Spatial() {
                   We investigate whether metabolic and stress-related transcriptional 
                   programs vary as a function of distance to amyloid plaques in AD mouse models. 
                   Moreover, we focus on certain gene expression between mice of different age 
-                  and across brian area.
+                  and across brain area.
                 </p>
               </div>
             </div>

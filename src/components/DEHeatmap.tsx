@@ -54,9 +54,19 @@ export function DEHeatmap({ csvUrl, height = 520, maxGenes = 20 }: Props) {
     const normalized = csvUrl.startsWith("/") ? csvUrl.slice(1) : csvUrl;
 
     const base = import.meta.env.BASE_URL || "/";
+    const baseWithSlash = base.endsWith("/") ? base : `${base}/`;
+    const baseNoLeading = baseWithSlash.startsWith("/") ? baseWithSlash.slice(1) : baseWithSlash;
+    const csvHasBase =
+      csvUrl.startsWith(baseWithSlash) || csvUrl.startsWith(baseNoLeading);
+
     const absoluteBase = base.startsWith("http")
       ? base
       : `${window.location.origin}${base}`;
+
+    if (csvHasBase) {
+      const path = csvUrl.startsWith("/") ? csvUrl : `/${csvUrl}`;
+      return `${window.location.origin}${path}`;
+    }
 
     try {
       return new URL(normalized, absoluteBase).toString();

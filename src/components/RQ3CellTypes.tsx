@@ -37,6 +37,7 @@ type Umap3DRow = {
 
 export function RQ3CellTypes() {
   const baseUrl = import.meta.env.BASE_URL ?? '/';
+  const baseRoot = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
   const [metabolicData, setMetabolicData] = useState<any>(null);
   const [plaqueDistanceData, setPlaqueDistanceData] = useState<any[]>([]);
   const [distanceHistData, setDistanceHistData] = useState<DistanceBin[]>([]);
@@ -108,7 +109,7 @@ export function RQ3CellTypes() {
 
   // Load metabolic categories data
   useEffect(() => {
-    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_metabolic_categories.json`)
+    fetch(`${baseRoot}data/website_rq3_celltypes/rq3_metabolic_categories.json`)
       .then(res => res.json())
       .then(data => setMetabolicData(data))
       .catch(err => console.error('Error loading metabolic categories data:', err));
@@ -116,7 +117,7 @@ export function RQ3CellTypes() {
 
   // Load plaque distance interaction data
   useEffect(() => {
-    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_plaque_distance_interaction.csv`)
+    fetch(`${baseRoot}data/website_rq3_celltypes/rq3_plaque_distance_interaction.csv`)
       .then(res => res.text())
       .then(csvText => {
         Papa.parse(csvText, {
@@ -135,7 +136,7 @@ export function RQ3CellTypes() {
 
   // Load plaque-distance histogram data by genotype
   useEffect(() => {
-    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_distance_hist_by_genotype.csv`)
+    fetch(`${baseRoot}data/website_rq3_celltypes/rq3_distance_hist_by_genotype.csv`)
       .then(res => res.text())
       .then(csvText => {
         Papa.parse(csvText, {
@@ -200,7 +201,7 @@ export function RQ3CellTypes() {
 
   // Load UMAP data for 2D and 3D plots
   useEffect(() => {
-    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_umap2d.csv`)
+    fetch(`${baseRoot}data/website_rq3_celltypes/rq3_umap2d.csv`)
       .then(res => res.text())
       .then(csvText => {
         Papa.parse(csvText, {
@@ -219,7 +220,7 @@ export function RQ3CellTypes() {
       })
       .catch(err => console.error('Error loading UMAP 2D data:', err));
 
-    fetch(`${baseUrl}data/website_rq3_celltypes/rq3_umap3d_distance.csv`)
+    fetch(`${baseRoot}data/website_rq3_celltypes/rq3_umap3d_distance.csv`)
       .then(res => res.text())
       .then(csvText => {
         Papa.parse(csvText, {
@@ -237,7 +238,7 @@ export function RQ3CellTypes() {
         });
       })
       .catch(err => console.error('Error loading UMAP 3D data:', err));
-  }, [baseUrl]);
+  }, [baseRoot]);
 
   const colorPalette = [
     '#ef4444',
@@ -557,7 +558,7 @@ export function RQ3CellTypes() {
             </p>
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-xl p-6 md:p-8 mb-24 space-y-6">
               <DEHeatmap
-                csvUrl="/data/website_rq3_celltypes/rq3_celltype_DE.csv"
+                csvUrl={`${baseRoot}data/website_rq3_celltypes/rq3_celltype_DE.csv`}
                 maxGenes={20}
               />
               <p className="text-slate-500 text-sm mt-3">
