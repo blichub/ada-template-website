@@ -9,9 +9,6 @@ import {
 import tinycolor from 'tinycolor2';
 import '../styles/globals.css';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import corrAlzFig from '/src/assets/corr_alzheimer.svg';
-import corrCtrlFig from '/src/assets/corr_control.svg';
-import corrDiffFig from '/src/assets/corr_difference.svg';
 
 import { useEffect } from "react";
 
@@ -424,7 +421,7 @@ export function DatasetMethods() {
                     >
                         <h2 className="text-4xl mb-4 gradient-text">Dataset Overview</h2>
 
-                        <p className="text-slate-400 max-w-3xl">
+                        <p className="text-slate-400 max-w-3xl" style={{ textAlign: 'justify' }}>
                             We analyze spatial transcriptomics data generated using the <strong>10x Xenium</strong> platform.
                             The dataset covers multiple ages (2.5 to 17.9 months) in <strong>TgCRND8</strong> and
                             <strong> wild-type</strong> mice, including:
@@ -542,7 +539,7 @@ export function DatasetMethods() {
                             viewport={{ once: true }}
                             className="mb-z text-slate-400 text-sm md:text-base"
                         >
-                            <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl">
+                            <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl" style={{ textAlign: 'justify' }}>
                                 Genes included in this analysis were carefully selected from the Xenium mouse brain dataset, based on their documented roles in cellular energy metabolism and metabolic regulation, using well-established annotations from KEGG and Gene Ontology (GO).
 
                                 The selected genes were then grouped into functional categories representing complementary
@@ -620,57 +617,57 @@ export function DatasetMethods() {
                             className="mb-z text-slate-400 text-sm md:text-base"
                         >
                             <div className="text-slate-400 mt-4 text-sm leading-relaxed max-w-4xl mx-auto">
-  <ul className="list-disc list-inside space-y-2 text-justify">
-    <li>
-      <span className="font-semibold text-slate-300">Mitochondrial function</span> – central pathways for cellular energy production, including oxidative phosphorylation
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Oxidative Stress / Antioxidant Defense</span> – pathways managing reactive oxygen species and cellular redox balance
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Lipid Metabolism and Transport</span> – regulation of lipid synthesis, breakdown, and intercellular transport
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Amino-Acid and One-Carbon Metabolism</span> – critical for biosynthesis, methylation reactions, and energy support
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Astrocyte Metabolic Support</span> – genes involved in energy support provided by glial cells
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Vascular–Nutrient Coupling</span> – genes linking blood flow to metabolic supply
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Growth-Factor and Metabolic Signaling</span> – pathways coordinating energy demand with cellular growth and signaling
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Redox and Lysosomal Metabolism</span> – regulation of reactive species and degradation pathways
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Ion Signaling and Energy Coupling</span> – pathways linking ion transport to energy consumption
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Immune–Metabolic Crosstalk</span> – interactions between immune responses and metabolic activity
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Autophagy and Proteostasis</span> – maintenance of protein homeostasis and energy recycling
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Glucose and Nutrient Transport</span> – transporters and pathways mediating nutrient uptake
-    </li>
-    <li>
-      <span className="font-semibold text-slate-300">Synaptic Energy Demand</span> – genes supporting the high energy requirements of neuronal communication
-    </li>
-  </ul>
-
-  <p className="mt-6 text-justify">
-    This systematic classification resulted in 74 unique genes, representing roughly 21%
-    of the analyzed gene panel. By organizing genes into these biologically meaningful categories,
-    this framework enables the investigation of both primary energy dysfunction and secondary
-    regulatory responses across disease stages and spatial contexts within the mouse brain.
-    This approach facilitates a comprehensive understanding of metabolic alterations,
-    highlighting how neurons and glial cells adapt to disease-related stressors.
-  </p>
-</div>
+                                <ul className="list-disc list-inside space-y-2 text-justify">
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Mitochondrial function</span> – central pathways for cellular energy production, including oxidative phosphorylation
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Oxidative Stress / Antioxidant Defense</span> – pathways managing reactive oxygen species and cellular redox balance
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Lipid Metabolism and Transport</span> – regulation of lipid synthesis, breakdown, and intercellular transport
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Amino-Acid and One-Carbon Metabolism</span> – critical for biosynthesis, methylation reactions, and energy support
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Astrocyte Metabolic Support</span> – genes involved in energy support provided by glial cells
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Vascular–Nutrient Coupling</span> – genes linking blood flow to metabolic supply
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Growth-Factor and Metabolic Signaling</span> – pathways coordinating energy demand with cellular growth and signaling
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Redox and Lysosomal Metabolism</span> – regulation of reactive species and degradation pathways
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Ion Signaling and Energy Coupling</span> – pathways linking ion transport to energy consumption
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Immune–Metabolic Crosstalk</span> – interactions between immune responses and metabolic activity
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Autophagy and Proteostasis</span> – maintenance of protein homeostasis and energy recycling
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Glucose and Nutrient Transport</span> – transporters and pathways mediating nutrient uptake
+                                    </li>
+                                    <li>
+                                        <span className="font-semibold text-slate-300">Synaptic Energy Demand</span> – genes supporting the high energy requirements of neuronal communication
+                                    </li>
+                                </ul>
+                                <br></br>
+                                <p className="mt-6 text-justify" style={{ textAlign: 'justify' }}>
+                                    This systematic classification resulted in 74 unique genes, representing roughly 21%
+                                    of the analyzed gene panel. By organizing genes into these biologically meaningful categories,
+                                    this framework enables the investigation of both primary energy dysfunction and secondary
+                                    regulatory responses across disease stages and spatial contexts within the mouse brain.
+                                    This approach facilitates a comprehensive understanding of metabolic alterations,
+                                    highlighting how neurons and glial cells adapt to disease-related stressors.
+                                </p>
+                            </div>
 
                             <br></br>
                         </motion.div>
@@ -683,7 +680,7 @@ export function DatasetMethods() {
                         viewport={{ once: true }}
                         className="mb-z text-slate-400 text-sm md:text-base"
                     >
-                        <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl mx-auto">
+                        <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl mx-auto" style={{ textAlign: 'justify' }}>
                             The following plots display correlation heatmaps of metabolic categories in single cells from
                             Control and Alzheimer groups. They reveal how different metabolic pathways fluctuate together,
                             highlighting patterns of coordinated activity under normal conditions and potential disruptions
@@ -693,36 +690,36 @@ export function DatasetMethods() {
                         <br></br>
                         {/* Row 1 */}
                         <div className="flex justify-center">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                                <Figure
-                                    src={corrCtrlFig}
-                                    title="Category–category correlations (Control)"
-                                    caption="Pearson correlations between metabolic categories in control samples."
+                            <div className="grid-cols-1 grid-cols-1 md:grid-cols-2 gap-16">
+
+                                <iframe
+                                    src="/ada-template-website/plots/corr_control.html"
+                                    className="w-full rounded-xl border border-white/10"
+                                    style={{ minWidth: "800px" }} // optional: prevents too small width
+                                />
+                                <br></br>
+                                <iframe
+                                    src="/ada-template-website/plots/corr_alzheimer.html"
+                                    className="w-full rounded-xl border border-white/10"
+                                    style={{ minWidth: "800px" }} // optional: prevents too small width
+                                />
+                                <br></br>
+                                <iframe
+                                    src="/ada-template-website/plots/corr_difference.html"
+                                    className="w-full rounded-xl border border-white/10"
+                                    style={{ minWidth: "800px" }} // optional: prevents too small width
                                 />
 
-                                <Figure
-                                    src={corrAlzFig}
-                                    title="Category–category correlations (Alzheimer)"
-                                    caption="Same correlations computed for Alzheimer samples."
-                                />
                             </div>
                         </div>
 
-                        {/* Row 2 */}
-                        <div className="flex justify-center mt-12">
-                            <Figure
-                                src={corrDiffFig}
-                                title="Δ Correlation (Alzheimer − Control)"
-                                caption="Difference in correlations between Alzheimer and control groups."
-                                wide
-                            />
-                        </div>
-                        <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl mx-auto">
+                        <p className="text-slate-400 mt-4 text-sm text-justify leading-relaxed max-w-4xl mx-auto" style={{ textAlign: 'justify' }}>
                             <p>
                                 <br></br>
                                 Both Control and Alzheimer groups show mostly positive
                                 correlations among metabolic categories, indicating
-                                coordinated regulation across energy and cellular pathways. <br></br>
+                                coordinated regulation across energy and cellular pathways.
+                                <br></br> <br></br>
                                 •	Control: Strong, widespread correlations highlight
                                 tightly co-regulated systems, including mitochondrial
                                 energy production, redox balance, lipid metabolism,
@@ -734,7 +731,7 @@ export function DatasetMethods() {
                                 where coordination weakens (blue) or strengthens (red),
                                 suggesting emerging metabolic fragmentation alongside
                                 compensatory responses. <br></br>
-
+                                <br></br>
                                 Overall, Alzheimer’s tissue exhibits partial disruption
                                 of coordinated metabolism, with some energy systems remaining
                                 intact while others lose synchronization. <br></br>
