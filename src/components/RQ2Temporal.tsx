@@ -27,7 +27,7 @@ type PCARecord = {
   PC1: number;
   PC2: number;
 };
-type ClusterWideRecord = { genotype: "WT" | "AD" | string; time: string | number; [k: string]: any };
+type ClusterWideRecord = { genotype: "WT" | "AD" | string; time: string | number;[k: string]: any };
 type CoefRecord = { name: string; coef: number };
 
 async function fetchJSON<T>(url: string): Promise<T> {
@@ -82,8 +82,8 @@ function Notes({
         <div className="text-slate-300 leading-relaxed">
           {observation ?? (
             <span className="text-slate-500">
-              
-          </span>
+
+            </span>
           )}
         </div>
       </div>
@@ -93,7 +93,7 @@ function Notes({
         <div className="text-slate-300 leading-relaxed">
           {interpretation ?? (
             <span className="text-slate-500">
-              
+
             </span>
           )}
         </div>
@@ -502,7 +502,10 @@ function PCATooltip({ active, payload }: any) {
    Main component
 --------------------------- */
 export function RQ2Temporal() {
- const base = `${import.meta.env.BASE_URL}data/website_rq2_temporal`;
+  const baseRoot = import.meta.env.BASE_URL.endsWith("/")
+    ? import.meta.env.BASE_URL
+    : `${import.meta.env.BASE_URL}/`;
+  const base = `${baseRoot}data/website_rq2_temporal`;
 
 
   // Helpers MUST live here (not between JSX)
@@ -665,13 +668,13 @@ export function RQ2Temporal() {
               </div>
             </div>
             <p className="text-xl text-slate-300 max-w-3xl">
-              A time-lapse of energy pathways: from normal aging to AD divergence.                
+              A time-lapse of energy pathways: from normal aging to AD divergence.
             </p>
           </motion.div>
         </div>
       </section>
 
-      
+
 
       {/* Status */}
       <section className="py-8 bg-[#050814]">
@@ -704,8 +707,8 @@ export function RQ2Temporal() {
 
       {/* Key finding with scroll chips */}
       <section className="py-14 bg-[#050814]">
-        
-           <div className="container mx-auto px-6">
+
+        <div className="container mx-auto px-6">
           <div className="bg-gradient-to-br from-purple-900/20 to-pink-900/20 border border-purple-500/30 rounded-2xl p-8 max-w-6xl mx-auto">
             <div className="flex items-start gap-4">
               <TrendingUp className="size-12 text-purple-300 flex-shrink-0" />
@@ -724,50 +727,49 @@ export function RQ2Temporal() {
               </div>
             </div>
           </div>
-        
         </div>
       </section>
 
-      <section className="py-12 bg-[#050814]">
-  <div className="container mx-auto px-6">
-    <div className="max-w-5xl mx-auto text-slate-300 leading-relaxed space-y-4">
-      <h3 className="text-2xl text-slate-100">Analytical strategy</h3>
+      <section className="py-12 bg-[#050814] mt-8">
+        <div className="container mx-auto px-6">
+          <div className="max-w-5xl mx-auto text-slate-300 leading-relaxed space-y-4">
+            <h3 className="text-2xl text-slate-100">Analytical strategy</h3>
 
-      <p>
-        The goal of this temporal analysis is to determine whether Alzheimer’s disease (AD)
-        primarily induces a <span className="font-semibold text-slate-200">constant shift</span> in
-        energy-related expression programs, or instead
-        <span className="font-semibold text-slate-200"> reshapes their temporal trajectories </span>
-        across disease progression.
-      </p>
+            <p>
+              The goal of this temporal analysis is to determine whether Alzheimer’s disease (AD)
+              primarily induces a <span className="font-semibold text-slate-200">constant shift</span> in
+              energy-related expression programs, or instead
+              <span className="font-semibold text-slate-200"> reshapes their temporal trajectories </span>
+              across disease progression.
+            </p>
 
-      <p>
-        To address this question, we analyze energy-associated genes and pathways across three
-        time points in WT and AD mice using complementary approaches:
-      </p>
+            <p>
+              To address this question, we analyze energy-associated genes and pathways across three
+              time points in WT and AD mice using complementary approaches:
+            </p>
 
-      <ul className="list-disc pl-6 space-y-1">
-        <li>Heatmaps to visualize temporal structure and genotype differences,</li>
-        <li>PCA to assess dominant axes of temporal versus disease-related variation,</li>
-        <li>Clustering to identify recurrent temporal programs,</li>
-        <li>Sparse predictive models to probe which features carry the strongest genotype signal.</li>
-      </ul>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>Heatmaps to visualize temporal structure and genotype differences,</li>
+              <li>PCA to assess dominant axes of temporal versus disease-related variation,</li>
+              <li>Clustering to identify recurrent temporal programs,</li>
+              <li>Sparse predictive models to probe which features carry the strongest genotype signal.</li>
+            </ul>
 
-      <p>
-        Importantly, given the very small sample size (n = 6), all results are interpreted as
-        <span className="font-semibold text-slate-200"> exploratory and hypothesis-generating</span>,
-        with emphasis on consistency across methods rather than isolated statistical significance.
-      </p>
-    </div>
-  </div>
-</section>
+            <p>
+              Importantly, given the very small sample size (n = 6), all results are interpreted as
+              <span className="font-semibold text-slate-200"> exploratory and hypothesis-generating</span>,
+              with emphasis on consistency across methods rather than isolated statistical significance.
+            </p>
+          </div>
+        </div>
+      </section>
 
 
       {/* Heatmaps */}
       <section id="sec-heatmaps" className="py-16 bg-[#050814] scroll-mt-28">
-       
-       
-           <div className="container mx-auto px-6">
+
+
+        <div className="container mx-auto px-6">
           <SectionTitle
             title="Heatmaps"
             subtitle="WT, AD, and Δ (AD − WT) are shown for direct comparison. Controls and legend appear once per panel."
@@ -877,7 +879,7 @@ export function RQ2Temporal() {
               </Card>
             )}
           </div>
-        
+
         </div>
       </section>
 
@@ -890,18 +892,18 @@ export function RQ2Temporal() {
           />
 
           <div className="max-w-5xl mx-auto text-slate-300 mb-8 leading-relaxed text-center">
-  <p>
-    Principal Component Analysis (PCA) is used here to test a central hypothesis:
-    if AD were merely a constant perturbation of WT aging, then WT and AD samples would follow
-    similar temporal trajectories in low-dimensional space.
-  </p>
+            <p>
+              Principal Component Analysis (PCA) is used here to test a central hypothesis:
+              if AD were merely a constant perturbation of WT aging, then WT and AD samples would follow
+              similar temporal trajectories in low-dimensional space.
+            </p>
 
-  <p className="mt-3">
-    Conversely, a separation of trajectories or a reorientation of principal axes would indicate
-    that AD introduces a distinct temporal geometry, potentially corresponding to disease
-    progression or compensatory responses.
-  </p>
-</div>
+            <p className="mt-3">
+              Conversely, a separation of trajectories or a reorientation of principal axes would indicate
+              that AD introduces a distinct temporal geometry, potentially corresponding to disease
+              progression or compensatory responses.
+            </p>
+          </div>
 
 
           <Card title="PCA (PC1 vs PC2)" subtitle={`Explained variance: PC1 ${evr1}% • PC2 ${evr2}%`}>
@@ -935,17 +937,17 @@ export function RQ2Temporal() {
             subtitle="Two plots: clusters 0–1 and 2–3. WT vs AD shown with different colors; cluster identity uses solid vs dashed."
           />
           <div className="max-w-5xl mx-auto text-slate-300 mb-8 leading-relaxed text-center">
-  <p>
-    While PCA captures global structure, it does not directly describe which expression programs
-    follow similar temporal patterns. To address this, we cluster energy-related features based
-    on their temporal profiles.
-  </p>
+            <p>
+              While PCA captures global structure, it does not directly describe which expression programs
+              follow similar temporal patterns. To address this, we cluster energy-related features based
+              on their temporal profiles.
+            </p>
 
-  <p className="mt-3">
-    This allows us to identify recurring temporal motifs such as early activation, late activation,
-    or WT-specific aging patterns, and to assess how these motifs are altered or preserved in AD.
-  </p>
-</div>
+            <p className="mt-3">
+              This allows us to identify recurring temporal motifs such as early activation, late activation,
+              or WT-specific aging patterns, and to assess how these motifs are altered or preserved in AD.
+            </p>
+          </div>
 
 
 
@@ -1014,11 +1016,11 @@ export function RQ2Temporal() {
             </Card>
 
             <div className="bg-slate-800/20 border border-slate-700/40 rounded-2xl p-6">
-            <Notes
-              observation="Cluster 0 shows a WT aging-related rise that becomes disrupted in AD (depressed in early/mid AD with partial recovery later). Cluster 1 shows a WT decrease with age that is comparatively flattened in AD (small cluster, weaker signal)."
-              interpretation=" Cluster 0 fits a “normal metabolic maturation → AD disruption” pattern: a program that should ramp with age in WT but gets perturbed during disease progression. Cluster 1 likely captures a narrow or noisy program, so it should be treated cautiously, useful as a hypothesis, not a headline."
-            />
-          </div>
+              <Notes
+                observation="Cluster 0 shows a WT aging-related rise that becomes disrupted in AD (depressed in early/mid AD with partial recovery later). Cluster 1 shows a WT decrease with age that is comparatively flattened in AD (small cluster, weaker signal)."
+                interpretation=" Cluster 0 fits a “normal metabolic maturation → AD disruption” pattern: a program that should ramp with age in WT but gets perturbed during disease progression. Cluster 1 likely captures a narrow or noisy program, so it should be treated cautiously, useful as a hypothesis, not a headline."
+              />
+            </div>
 
             <Card title="Clusters 2–3" subtitle="Color = genotype • Line style = cluster">
               <div className="w-full" style={{ height: 420, minHeight: 320 }}>
@@ -1101,18 +1103,18 @@ export function RQ2Temporal() {
           />
 
           <div className="max-w-5xl mx-auto text-slate-300 mb-8 leading-relaxed text-center">
-  <p>
-    Finally, we use sparse logistic regression not as a definitive classifier, but as a
-    diagnostic tool to probe which genes or functional categories carry the strongest genotype
-    signal under strong regularization.
-  </p>
+            <p>
+              Finally, we use sparse logistic regression not as a definitive classifier, but as a
+              diagnostic tool to probe which genes or functional categories carry the strongest genotype
+              signal under strong regularization.
+            </p>
 
-  <p className="mt-3">
-    Given the limited sample size, predictive performance is expected to be low. The value of
-    this analysis lies instead in identifying a compact, interpretable shortlist of features
-    that may warrant further investigation in larger cohorts.
-  </p>
-</div>
+            <p className="mt-3">
+              Given the limited sample size, predictive performance is expected to be low. The value of
+              this analysis lies instead in identifying a compact, interpretable shortlist of features
+              that may warrant further investigation in larger cohorts.
+            </p>
+          </div>
 
 
           <div className="grid lg:grid-cols-2 gap-6">
@@ -1191,13 +1193,13 @@ export function RQ2Temporal() {
           <div className="max-w-6xl mx-auto bg-slate-800/30 border border-slate-700/50 rounded-2xl p-8">
             <h3 className="text-2xl text-slate-100 mb-3">Conclusion</h3>
             <p className="text-slate-300 leading-relaxed">
-               Overall, the temporal analysis suggests that energy-related expression programs are organized primarily by stage/time, while AD acts by reshaping trajectories rather than producing a stable constant offset. PCA separates a strong AD progression axis (PC1) from a WT-like aging/maturation axis (PC2), and clustering recovers multiple temporal patterns including late AD activation and WT-to-AD disruption profiles. Predictive models reinforce the same message: time bins are easier to predict than genotype, and any “top genes/functions” should be treated as exploratory shortlists until validated on larger sample sizes.
+              Overall, the temporal analysis suggests that energy-related expression programs are organized primarily by stage/time, while AD acts by reshaping trajectories rather than producing a stable constant offset. PCA separates a strong AD progression axis (PC1) from a WT-like aging/maturation axis (PC2), and clustering recovers multiple temporal patterns including late AD activation and WT-to-AD disruption profiles. Predictive models reinforce the same message: time bins are easier to predict than genotype, and any “top genes/functions” should be treated as exploratory shortlists until validated on larger sample sizes.
             </p>
           </div>
         </div>
       </section>
     </div>
-    
+
   );
 }
 
